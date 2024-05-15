@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { SVGIcon } from "../../features/SvgIcon";
 import { TileCard } from "../../features/TileCard";
+import { ArrowRightCircleIcon } from "@heroicons/react/24/outline";
 
 export const Dashboard = () => {
   return (
@@ -8,24 +9,14 @@ export const Dashboard = () => {
       <TileCard
         title="  Tradingview Watchlist"
         action={
-          <Link to="watchlists" className="flex gap-4">
+          <Link to="watchlists" className="flex items-center gap-1">
             <p className="text-gray-500 dark:text-gray-300 hover:underline ">
               All Watchlists
             </p>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
+
+            <span className="inline-flex p-2 text-blue-500 capitalize transition-colors duration-300 transform rtl:-scale-x-100 dark:text-white hover:underline hover:text-blue-600 dark:hover:text-blue-500">
+              <ArrowRightCircleIcon className="block h-6 w-6" />
+            </span>
           </Link>
         }
       >

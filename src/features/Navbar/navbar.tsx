@@ -9,7 +9,7 @@ import {
   MenuItems,
   Transition,
 } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 
 const navigation = [
@@ -43,13 +43,13 @@ export function Navbar() {
                 </DisclosureButton>
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                {/* <div className="flex flex-shrink-0 items-center">
+                <div className="flex flex-shrink-0 items-center">
                   <img
                     className="h-8 w-auto"
                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                     alt="Your Company"
                   />
-                </div> */}
+                </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
@@ -58,8 +58,7 @@ export function Navbar() {
                         className={classNames(
                           item.current
                             ? "text-gray-800 transition-colors duration-300 transform dark:text-gray-200 border-b-2 border-blue-500"
-                            : "text-gray-600 capitalize dark:text-gray-300",
-                          "border-b-2 border-transparent hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6"
+                            : "text-gray-600 capitalize dark:text-gray-300 border-b-2 border-transparent hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6"
                         )}
                         aria-current={item.current ? "page" : undefined}
                         to={item.href}
@@ -71,15 +70,6 @@ export function Navbar() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button
-                  type="button"
-                  className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                >
-                  <span className="absolute -inset-1.5" />
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
-
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>
@@ -102,45 +92,38 @@ export function Navbar() {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-800">
                       <MenuItem>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
-                          >
-                            Your Profile
-                          </a>
-                        )}
+                        <div className="py-3 px-4">
+                          <span className="block text-sm font-semibold text-gray-900 dark:text-white">
+                            Neil Sims
+                          </span>
+                          <span className="block text-sm text-gray-900 truncate dark:text-white">
+                            name@flowbite.com
+                          </span>
+                        </div>
                       </MenuItem>
+                      <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
                       <MenuItem>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
-                          >
-                            Settings
-                          </a>
-                        )}
+                        <Link
+                          to="/profiles"
+                          className={
+                            "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-500 dark:text-white"
+                          }
+                        >
+                          Your Profile
+                        </Link>
                       </MenuItem>
+
                       <MenuItem>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
-                          >
-                            Sign out
-                          </a>
-                        )}
+                        <Link
+                          to="/profiles"
+                          className={
+                            "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-500 dark:text-white"
+                          }
+                        >
+                          Sign out
+                        </Link>
                       </MenuItem>
                     </MenuItems>
                   </Transition>
