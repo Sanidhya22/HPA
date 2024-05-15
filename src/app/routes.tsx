@@ -5,6 +5,7 @@ import { ErrorElement } from "../pages/ErrorElement";
 import { SignIn } from "../pages/SignIn";
 import { SignUp } from "../pages/SignUp";
 import { Dashboard } from "../pages/Dashboard";
+import { Watchlist } from "../pages/WatchLists";
 
 export const router = createBrowserRouter([
   {
@@ -28,8 +29,8 @@ export const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path: "videos",
-        element: <h1>Dashboard Videos</h1>,
+        path: "watchlists",
+        element: <Watchlist />,
       },
     ],
   },

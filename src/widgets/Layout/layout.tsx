@@ -8,11 +8,9 @@ export const Layout = () => {
       <div>
         <Navbar />
         <Breadcrumbs />
-        <div className="flex flex-row flex-wrap py-4">
-          <main role="main" className="w-full sm:w-2/3 md:w-3/4 pt-1 px-2">
-            <Outlet />
-          </main>
-        </div>
+        <main role="main" className="w-full px-6 py-2">
+          <Outlet />
+        </main>
       </div>
     </>
   );

@@ -4,7 +4,7 @@ export const Breadcrumbs = () => {
   const location = useLocation();
   const pathname = location.pathname.split("/").filter((x) => x);
   return (
-    <nav className="flex px-5 py-3 text-gray-700 " aria-label="Breadcrumb">
+    <nav className="flex px-6 py-4 text-gray-700 " aria-label="Breadcrumb">
       <ol className="inline-flex items-center space-x-1 rtl:space-x-reverse">
         {pathname.map((value, index) => {
           const last = index === pathname.length - 1;
