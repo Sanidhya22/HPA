@@ -4,6 +4,7 @@ import { Layout } from "../widgets/Layout/layout";
 import { ErrorElement } from "../pages/ErrorElement";
 import { SignIn } from "../pages/SignIn";
 import { SignUp } from "../pages/SignUp";
+import { Dashboard } from "../pages/Dashboard";
 
 export const router = createBrowserRouter([
   {
@@ -23,14 +24,12 @@ export const router = createBrowserRouter([
     errorElement: <ErrorElement />,
     children: [
       {
+        path: "",
+        element: <Dashboard />,
+      },
+      {
         path: "videos",
         element: <h1>Dashboard Videos</h1>,
-        children: [
-          {
-            path: "videoone",
-            element: <h1>Dashboard Videos One</h1>,
-          },
-        ],
       },
     ],
   },

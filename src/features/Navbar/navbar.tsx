@@ -57,9 +57,9 @@ export function Navbar() {
                         key={item.name}
                         className={classNames(
                           item.current
-                            ? "text-blue-700"
-                            : "text-gray-700 hover:text-blue-700",
-                          "rounded-md px-3 py-2 text-sm font-medium"
+                            ? "text-gray-800 transition-colors duration-300 transform dark:text-gray-200 border-b-2 border-blue-500"
+                            : "text-gray-600 capitalize dark:text-gray-300",
+                          "border-b-2 border-transparent hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6"
                         )}
                         aria-current={item.current ? "page" : undefined}
                         to={item.href}
