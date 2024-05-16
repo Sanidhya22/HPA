@@ -5,8 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "cd ./client && npm run dev"
+    "dev": "concurrently --kill-others --prefix-colors --success first \"npm run dev:ui\" \"npm run dev:server\"",
+    "dev:ui": "cd ./client && npm run dev",
+    "dev:server": "cd ./server && npm run dev"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
 }
