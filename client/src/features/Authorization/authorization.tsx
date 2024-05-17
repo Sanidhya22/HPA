@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Navigate, useLocation, Outlet } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
+import { ErrorElement } from "../../pages/ErrorElement";
 
 export const Authorization: FC = () => {
   const user = useAppSelector((state) => state.user);
@@ -9,7 +10,7 @@ export const Authorization: FC = () => {
   if (user.username) {
     const isAllowed = user.isAdmin;
 
-    return isAllowed ? <Outlet /> : <p>Unauthorised</p>;
+    return isAllowed ? <Outlet /> : <ErrorElement />;
   }
   return <Navigate to="/signin" state={{ path: location.pathname }} replace />;
 };

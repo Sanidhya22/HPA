@@ -1,9 +1,10 @@
 import { FC, PropsWithChildren, useEffect, useState } from "react";
 import { useAppDispatch } from "../../app/hooks";
 import { userActions } from "../../store/user.slice";
+import { SVGIcon } from "../SvgIcon";
 
 export const PersistLogin: FC<PropsWithChildren> = ({ children }) => {
-  const [l, sl] = useState(true);
+  const [loading, setLoading] = useState(true);
   const dispatch = useAppDispatch();
   useEffect(() => {
     async function checkLoginStatus() {
@@ -28,11 +29,20 @@ export const PersistLogin: FC<PropsWithChildren> = ({ children }) => {
         dispatch(userActions.setUserState({ username, email, isAdmin }));
       } catch (error) {
       } finally {
-        sl(false);
+        setLoading(false);
       }
     }
-
     checkLoginStatus();
   }, []);
-  return <>{l ? <p>...Loading</p> : children}</>;
+  return (
+    <>
+      {loading ? (
+        <span className="flex items-center justify-center h-screen">
+          <SVGIcon name="loading-spinner" />
+        </span>
+      ) : (
+        children
+      )}
+    </>
+  );
 };
