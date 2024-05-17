@@ -1,6 +1,35 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export const SignIn = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:8181/api/auth/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        return;
+      }
+
+      const data = await response.json();
+
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="w-full max-w-sm p-6 m-auto mx-auto my-7 bg-white rounded-lg shadow-2xl dark:bg-gray-800">
       <div className="flex justify-center mx-auto">
@@ -11,7 +40,7 @@ export const SignIn = () => {
         />
       </div>
 
-      <form className="mt-6">
+      <form onSubmit={handleSubmit} className="mt-6">
         <div>
           <label
             htmlFor="username"
@@ -20,6 +49,10 @@ export const SignIn = () => {
             Username
           </label>
           <input
+            value={username}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setUsername(e.target.value);
+            }}
             type="text"
             className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
           />
@@ -42,13 +75,20 @@ export const SignIn = () => {
           </div>
 
           <input
+            value={password}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setPassword(e.target.value);
+            }}
             type="password"
             className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
           />
         </div>
 
         <div className="mt-6">
-          <button className="w-full px-6 py-2.5 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
+          <button
+            type="submit"
+            className="w-full px-6 py-2.5 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50"
+          >
             Sign In
           </button>
         </div>

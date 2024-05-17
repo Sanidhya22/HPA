@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../../app/hooks";
+import { useEffect } from "react";
 
 export const SignUp = () => {
+  const user = useAppSelector((state) => state.user);
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
+
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="container flex items-center justify-center min-h-screen px-6 mx-auto">

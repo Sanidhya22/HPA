@@ -1,6 +1,7 @@
 import { User } from '../models/user.model.js';
 import { ApiError } from '../utils/apiError.js';
 import { ApiResponse } from '../utils/apiResponse.js';
+import jwt from 'jsonwebtoken';
 
 export const handleUserSignUp = async (req, res, next) => {
   try {
@@ -52,19 +53,18 @@ export const handleUserSignIn = async (req, res, next) => {
     const loggedInUser = await User.findById(user._id).select(
       '-password -refreshToken'
     );
-
+    const thirtyDaysInMilliseconds = 30 * 24 * 60 * 60 * 1000;
     const options = {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // Set secure flag only in production
-      maxAge: 900000,
-      session: false,
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: thirtyDaysInMilliseconds,
     };
 
     return res
       .status(200)
       .cookie('accessToken', accessToken, options)
       .cookie('refreshToken', refreshToken, options)
-      .json({loggedInUser})
+      .json({ loggedInUser, accessToken });
   } catch (err) {
     next(err);
   }
@@ -113,5 +113,34 @@ export const handleUserSignOut = async (req, res, next) => {
       .json(new ApiResponse(200, {}, 'User logged Out'));
   } catch (error) {
     next(error);
+  }
+};
+
+export const authenticateToken = async (req, res, next) => {
+  try {
+    const token =
+      req.cookies?.accessToken ||
+      req.header('Authorization')?.replace('Bearer ', '');
+
+    if (!token) {
+      throw new ApiError(401, 'Unauthorized request');
+    }
+    const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    const user = await User.findById(decodedToken?._id).select(
+      '-password -refreshToken'
+    );
+
+    if (!user) {
+      throw new ApiError(401, 'Invalid Access Token');
+    }
+
+    const { username, email, isAdmin } = user;
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(200, { username, email, isAdmin }, 'User Verified')
+      );
+  } catch (err) {
+    next(err);
   }
 };

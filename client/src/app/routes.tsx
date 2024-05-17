@@ -6,6 +6,7 @@ import { SignIn } from "../pages/SignIn";
 import { SignUp } from "../pages/SignUp";
 import { Dashboard } from "../pages/Dashboard";
 import { Watchlist } from "../pages/WatchLists";
+import { Authentication } from "../features/Authentication";
 
 export const router = createBrowserRouter([
   {
@@ -21,7 +22,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Layout />,
+    element: (
+      <Authentication>
+        <Layout />
+      </Authentication>
+    ),
     errorElement: <ErrorElement />,
     children: [
       {
