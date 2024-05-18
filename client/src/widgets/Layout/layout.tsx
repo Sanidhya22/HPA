@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { Navbar } from "../../features/Navbar";
 import { Breadcrumbs } from "../../features/Breadcrumbs";
+import { themeBase } from "../../styles";
 
 export const Layout = () => {
   return (

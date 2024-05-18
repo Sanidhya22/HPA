@@ -13,6 +13,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { Button } from "../Button/button";
 import { useAppSelector } from "../../app/hooks";
+import { themeBase } from "../../styles";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", current: true },
@@ -28,7 +29,7 @@ export function Navbar() {
   return (
     <Disclosure
       as="nav"
-      className="bg-gray-50 dark:bg-gray-800 dark:border-gray-700"
+      className="bg-gray-50 dark:bg-gray-800 dark:border-gray-700 shadow"
     >
       {({ open }) => (
         <>
@@ -72,77 +73,80 @@ export function Navbar() {
                   </div>
                 </div>
               </div>
-              {!user.username && (
+              {!user.username ? (
                 <div className="flex gap-4">
                   <Button name="Sign in" to="/signin" />
                   <Button name="Sign up" to="/signup" />
                 </div>
-              )}
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                {/* Profile dropdown */}
-                <Menu as="div" className="relative ml-3">
-                  <div>
-                    <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                      <span className="absolute -inset-1.5" />
-                      <span className="sr-only">Open user menu</span>
-                      <img
-                        className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
-                      />
-                    </MenuButton>
-                  </div>
-                  <Transition
-                    as={Fragment}
-                    enter="transition ease-out duration-100"
-                    enterFrom="transform opacity-0 scale-95"
-                    enterTo="transform opacity-100 scale-100"
-                    leave="transition ease-in duration-75"
-                    leaveFrom="transform opacity-100 scale-100"
-                    leaveTo="transform opacity-0 scale-95"
-                  >
-                    <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-800">
-                      <MenuItem>
-                        <div className="py-3 px-4">
-                          <span className="block text-sm font-semibold text-gray-900 dark:text-white">
-                            Neil Sims
-                          </span>
-                          <span className="block text-sm text-gray-900 truncate dark:text-white">
-                            name@flowbite.com
-                          </span>
-                        </div>
-                      </MenuItem>
-                      <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
-                      <MenuItem>
-                        <Link
-                          to="/profiles"
-                          className={
-                            "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-500 dark:text-white"
-                          }
-                        >
-                          Your Profile
-                        </Link>
-                      </MenuItem>
+              ) : (
+                <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                  {/* Profile dropdown */}
+                  <Menu as="div" className="relative ml-3">
+                    <div>
+                      <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        <span className="absolute -inset-1.5" />
+                        <span className="sr-only">Open user menu</span>
+                        <img
+                          className="h-8 w-8 rounded-full"
+                          src="man.png"
+                          alt=""
+                        />
+                      </MenuButton>
+                    </div>
+                    <Transition
+                      as={Fragment}
+                      enter="transition ease-out duration-100"
+                      enterFrom="transform opacity-0 scale-95"
+                      enterTo="transform opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="transform opacity-100 scale-100"
+                      leaveTo="transform opacity-0 scale-95"
+                    >
+                      <MenuItems
+                        className={`${themeBase} absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md epy-1 shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none`}
+                      >
+                        <MenuItem>
+                          <div className="py-3 px-4">
+                            <span className="block text-sm font-semibold text-gray-900 dark:text-white">
+                              Neil Sims
+                            </span>
+                            <span className="block text-sm text-gray-900 truncate dark:text-white">
+                              name@flowbite.com
+                            </span>
+                          </div>
+                        </MenuItem>
+                        <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
+                        <MenuItem>
+                          <Link
+                            to="/profiles"
+                            className={
+                              "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-500 dark:text-white"
+                            }
+                          >
+                            Your Profile
+                          </Link>
+                        </MenuItem>
 
-                      <MenuItem>
-                        <Link
-                          to="/profiles"
-                          className={
-                            "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-500 dark:text-white"
-                          }
-                        >
-                          Sign out
-                        </Link>
-                      </MenuItem>
-                    </MenuItems>
-                  </Transition>
-                </Menu>
-              </div>
+                        <MenuItem>
+                          <Link
+                            to="/profiles"
+                            className={
+                              "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-500 dark:text-white"
+                            }
+                          >
+                            Sign out
+                          </Link>
+                        </MenuItem>
+                      </MenuItems>
+                    </Transition>
+                  </Menu>
+                </div>
+              )}
             </div>
           </div>
 
-          <DisclosurePanel className="sm:hidden absolute w-full">
-            <div className="space-y-1 px-2 pb-3 pt-2">
+          <DisclosurePanel className="sm:hidden static w-full">
+            <div className={`${themeBase} shadow-2xl space-y-1 px-2 pb-3 pt-2`}>
               {navigation.map((item) => (
                 <Disclosure.Button
                   key={item.name}
@@ -150,9 +154,9 @@ export function Navbar() {
                   href={item.href}
                   className={classNames(
                     item.current
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-700 hover:bg-gray-700 hover:text-blue",
-                    "block rounded-md px-3 py-2 text-base font-medium"
+                      ? "text-white bg-gray-600"
+                      : "hover:bg-gray-400 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50",
+                    "text-base text-gray-900 dark:text-white block rounded-md px-3 py-2 font-medium "
                   )}
                   aria-current={item.current ? "page" : undefined}
                 >

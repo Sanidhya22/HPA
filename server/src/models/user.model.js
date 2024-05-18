@@ -25,6 +25,13 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    avatar: {
+      type: String,
+      default: 'man',
+    },
+    profileImageUrl: {
+      type: String,
+    },
     refreshToken: {
       type: String,
     },
