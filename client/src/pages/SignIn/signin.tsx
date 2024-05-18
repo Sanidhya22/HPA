@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { SignUpInCard } from "../../shared/SignUp-SignIn-Card";
-import { SVGIcon } from "../../features/SvgIcon";
 import { LockClosedIcon, UserIcon } from "@heroicons/react/24/outline";
+import { GoogleButton } from "../../features/Button";
 
 export const SignIn = () => {
   const [username, setUsername] = useState("");
@@ -111,17 +111,7 @@ export const SignIn = () => {
         </div>
 
         <div className="flex items-center mt-6 -mx-2">
-          <a
-            href="#"
-            className="flex items-center justify-center w-full text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
-          >
-            <div className="px-4 py-2">
-              <SVGIcon name="google" />
-            </div>
-            <button className="flex items-center justify-center w-full px-6 py-2 text-sm font-medium text-black dark:text-white transition-colors duration-300 transform rounded-lg focus:outline-none">
-              Sign up with Google
-            </button>
-          </a>
+          <GoogleButton title=" Sign in with Google" onClick={() => {}} />
         </div>
 
         <p className="mt-8 text-xs font-light text-center text-gray-400">

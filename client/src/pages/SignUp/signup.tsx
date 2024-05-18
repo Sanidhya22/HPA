@@ -6,8 +6,8 @@ import {
   EnvelopeIcon,
   LockClosedIcon,
 } from "@heroicons/react/24/outline";
-import { SVGIcon } from "../../features/SvgIcon";
 import { SignUpInCard } from "../../shared/SignUp-SignIn-Card";
+import { GoogleButton } from "../../features/Button";
 
 export const SignUp = () => {
   const user = useAppSelector((state) => state.user);
@@ -90,22 +90,15 @@ export const SignUp = () => {
           >
             Sign Up
           </button>
-          <a
-            href="#"
-            className="flex items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
-          >
-            <div className="px-4 py-2">
-              <SVGIcon name="google" />
-            </div>
-            <button className="flex items-center justify-center w-full px-6 py-2 mx-2 text-sm font-medium text-black dark:text-white transition-colors duration-300 transform rounded-lg focus:outline-none">
-              Sign up with Google
-            </button>
-          </a>
+
+          <div className="flex items-center mt-6 -mx-2">
+            <GoogleButton title="  Sign up with Google" onClick={() => {}} />
+          </div>
 
           <div className="mt-6 text-center ">
             <Link
               to="/signin"
-              className="text-sm text-blue-500 hover:underline dark:text-blue-400"
+              className="font-medium text-xs text-gray-700 dark:text-gray-200 hover:underline"
             >
               Already have an account?
             </Link>
