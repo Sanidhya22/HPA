@@ -1,10 +1,16 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { SignUpInCard } from "../../shared/SignUp-SignIn-Card";
 import { LockClosedIcon, UserIcon } from "@heroicons/react/24/outline";
 import { GoogleButton } from "../../features/Button";
+import { useAppDispatch } from "../../app/hooks";
+import { userActions } from "../../store/user.slice";
 
 export const SignIn = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useAppDispatch();
+  const from = location.state?.from || "/";
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -21,14 +27,14 @@ export const SignIn = () => {
         credentials: "include",
       });
 
-      if (!response.ok) {
-        return;
-      }
-
       const data = await response.json();
-
-      console.log(data);
-    } catch (error) {
+      if (response.ok) {
+        const { username, email, isAdmin } = data.user;
+        dispatch(userActions.setUserState({ username, email, isAdmin }));
+        navigate(from);
+      }
+      console.log(data.message);
+    } catch (error: any) {
       console.log(error);
     }
   };

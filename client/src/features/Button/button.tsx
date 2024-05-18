@@ -1,9 +1,13 @@
 import { FC } from "react";
+import { Link } from "react-router-dom";
 
-export const Button: FC<{ name: string }> = ({ name }) => {
+export const Button: FC<{ name: string; to: string }> = ({ name, to }) => {
   return (
-    <button className="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
+    <Link
+      to={to}
+      className="flex items-center justify-center h-12 px-3 text-sm text-center text-gray-600 transition-colors duration-200 transform border rounded-lg xl:h-10 dark:text-gray-300 dark:border-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none"
+    >
       {name}
-    </button>
+    </Link>
   );
 };

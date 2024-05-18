@@ -64,7 +64,7 @@ export const handleUserSignIn = async (req, res, next) => {
       .status(200)
       .cookie('accessToken', accessToken, options)
       .cookie('refreshToken', refreshToken, options)
-      .json({ loggedInUser, accessToken });
+      .json({ user: loggedInUser, accessToken });
   } catch (err) {
     next(err);
   }

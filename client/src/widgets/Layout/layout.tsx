@@ -7,7 +7,7 @@ export const Layout = () => {
     <>
       <div>
         <Navbar />
-        <Breadcrumbs />
+        {/* <Breadcrumbs /> */}
         <main
           role="main"
           className="w-full px-6 py-2 bg-white dark:bg-gray-900"

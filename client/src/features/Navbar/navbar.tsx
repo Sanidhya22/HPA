@@ -12,6 +12,7 @@ import {
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { Button } from "../Button/button";
+import { useAppSelector } from "../../app/hooks";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", current: true },
@@ -23,6 +24,7 @@ function classNames(...classes: string[]) {
 }
 
 export function Navbar() {
+  const user = useAppSelector((state) => state.user);
   return (
     <Disclosure
       as="nav"
@@ -70,9 +72,12 @@ export function Navbar() {
                   </div>
                 </div>
               </div>
-
-              <Button name="Signin" />
-              <Button name="Signup" />
+              {!user.username && (
+                <div className="flex gap-4">
+                  <Button name="Sign in" to="/signin" />
+                  <Button name="Sign up" to="/signup" />
+                </div>
+              )}
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
