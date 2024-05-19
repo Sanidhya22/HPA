@@ -6,6 +6,7 @@ import { GoogleButton } from "../../features/Button";
 import { useAppDispatch } from "../../app/hooks";
 import { userActions } from "../../store/user.slice";
 import { useSiginMutation } from "../../store/api";
+import { SVGIcon } from "../../features/SvgIcon";
 
 export const SignIn = () => {
   const navigate = useNavigate();
@@ -94,12 +95,18 @@ export const SignIn = () => {
         </a>
 
         <div className="mt-6">
-          <button
-            type="submit"
-            className="w-full px-6 py-2.5 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 dark:bg-blue-600 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50"
-          >
-            Sign In
-          </button>
+          {isLoading ? (
+            <span className="flex justify-center">
+              <SVGIcon name="dot-scale-middle-loading" />
+            </span>
+          ) : (
+            <button
+              type="submit"
+              className="w-full px-6 py-2.5 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 dark:bg-blue-600 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50"
+            >
+              Sign In
+            </button>
+          )}
         </div>
         <div className="flex items-center justify-between mt-4">
           <span className="w-1/5 border-b dark:border-gray-600 lg:w-1/5"></span>
