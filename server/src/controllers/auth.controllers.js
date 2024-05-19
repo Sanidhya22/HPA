@@ -134,7 +134,7 @@ export const authenticateToken = async (req, res, next) => {
       throw new ApiError(401, 'Invalid Access Token');
     }
 
-    const { username, email, isAdmin } = user;
+    const { username, email, isAdmin, avatar, profileImageUrl } = user;
     return res
       .status(200)
       .json(

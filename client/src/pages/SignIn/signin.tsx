@@ -5,6 +5,7 @@ import { LockClosedIcon, UserIcon } from "@heroicons/react/24/outline";
 import { GoogleButton } from "../../features/Button";
 import { useAppDispatch } from "../../app/hooks";
 import { userActions } from "../../store/user.slice";
+import { useSiginMutation } from "../../store/api";
 
 export const SignIn = () => {
   const navigate = useNavigate();
@@ -13,27 +14,21 @@ export const SignIn = () => {
   const from = location.state?.from || "/";
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [sigin, { isLoading }] = useSiginMutation();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8181/api/auth/signin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-        credentials: "include",
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        const { username, email, isAdmin } = data.user;
-        dispatch(userActions.setUserState({ username, email, isAdmin }));
+      const result = await sigin({ username, password });
+      if (result.data) {
+        const { username, email, isAdmin, avatar } = result.data.user;
+        dispatch(
+          userActions.setUserState({ username, email, isAdmin, avatar })
+        );
         navigate(from);
       }
-      console.log(data.message);
+      // console.log(result.error?.data);
     } catch (error: any) {
       console.log(error);
     }
