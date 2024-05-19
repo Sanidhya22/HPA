@@ -2,9 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import authRoutes from './routes/auth.routes.js';
+import dashboardRoutes from './routes/dashboard.routes.js';
 import { errorHandler } from './middlewares/errorHandler.middleware.js';
 import { API } from './constants.js';
-import { verifyAuth } from './middlewares/auth.middleware.js';
 
 const app = express();
 
@@ -23,6 +23,8 @@ app.use(cookieParser());
 
 app.use(`${API}/auth`, authRoutes);
 
-app.use(errorHandler);
+app.use(`${API}/dashboard`, dashboardRoutes);
+
+app.use(errorHandler, dashboardRoutes);
 
 export default app;
