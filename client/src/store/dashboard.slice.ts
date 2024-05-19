@@ -1,28 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+import type { CaseReducer, PayloadAction } from "@reduxjs/toolkit";
+import { Dashboard } from "../shared/Types/dashboardSlice";
+type State = Dashboard;
 
-interface DashboardState {
-  value: number;
-}
-
-const initialState: DashboardState = {
-  value: 22,
+const initialState: State = {
+  hommaPersonalWatchlist: [],
+  sectorWatchList: [],
+  youtubeVideos: [],
+  hpaVideos: [],
+  chartLinkScanners: [],
+  telegramChannel: [],
+  tradingViewHPAIndicators: [],
 };
+const setDashboardData: CaseReducer<State, PayloadAction<State>> = (
+  state,
+  action
+) => ({
+  ...state,
+  ...action.payload,
+});
 
 const dashboardSlice = createSlice({
   name: "dashboard",
   initialState,
   reducers: {
-    increment: (state) => {
-      state.value += 1;
-    },
-    decrement: (state) => {
-      state.value -= 1;
-    },
-
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload;
-    },
+    setDashboardData,
   },
 });
 

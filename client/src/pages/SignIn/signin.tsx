@@ -5,7 +5,7 @@ import { LockClosedIcon, UserIcon } from "@heroicons/react/24/outline";
 import { GoogleButton } from "../../features/Button";
 import { useAppDispatch } from "../../app/hooks";
 import { userActions } from "../../store/user.slice";
-import { useSiginMutation } from "../../store/api";
+import { useSiginMutation } from "../../store/auth.api";
 import { SVGIcon } from "../../features/SvgIcon";
 
 export const SignIn = () => {

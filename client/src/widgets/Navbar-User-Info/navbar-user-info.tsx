@@ -11,7 +11,7 @@ import {
 import { Button } from "../../features/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { themeBase } from "../../styles";
-import { useSignoutMutation } from "../../store/api";
+import { useSignoutMutation } from "../../store/auth.api";
 import { userActions } from "../../store/user.slice";
 
 export const NavbarUserInfo: FC = () => {

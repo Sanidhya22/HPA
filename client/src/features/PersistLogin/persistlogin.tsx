@@ -2,7 +2,7 @@ import { FC, PropsWithChildren, useEffect, useState } from "react";
 import { useAppDispatch } from "../../app/hooks";
 import { userActions } from "../../store/user.slice";
 import { SVGIcon } from "../SvgIcon";
-import { useVerifyAuthMutation } from "../../store/api";
+import { useVerifyAuthMutation } from "../../store/auth.api";
 
 export const PersistLogin: FC<PropsWithChildren> = ({ children }) => {
   const dispatch = useAppDispatch();

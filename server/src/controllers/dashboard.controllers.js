@@ -20,6 +20,25 @@ export const getDashboardData = async (req, res) => {
   //     ],
   //     sectorWatchList: sectorWatchlistData,
   //   });
-  const t = await Dashboard.findById(dashboardId);
-  return res.status(200).json({ t });
+
+  const result = await Dashboard.findById(dashboardId);
+  const {
+    hommaPersonalWatchlist,
+    sectorWatchList,
+    youtubeVideos,
+    hpaVideos,
+    chartLinkScanners,
+    telegramChannel,
+    tradingViewHPAIndicators,
+  } = result;
+
+  return res.status(200).json({
+    hommaPersonalWatchlist,
+    sectorWatchList,
+    youtubeVideos,
+    hpaVideos,
+    chartLinkScanners,
+    telegramChannel,
+    tradingViewHPAIndicators,
+  });
 };

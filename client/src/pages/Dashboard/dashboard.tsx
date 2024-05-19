@@ -2,8 +2,49 @@ import { Link } from "react-router-dom";
 import { SVGIcon } from "../../features/SvgIcon";
 import { TileCard } from "../../features/TileCard";
 import { ArrowRightCircleIcon } from "@heroicons/react/24/outline";
+import { useGetDataQuery } from "../../store/dashboard.api";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { dashboardActions } from "../../store/dashboard.slice";
 
 export const Dashboard = () => {
+  const dispatch = useAppDispatch();
+  const dashboardData = useAppSelector((state) => state.dashboard);
+  const { data, isSuccess, isLoading } = useGetDataQuery();
+
+  useEffect(() => {
+    if (isSuccess && data) {
+      const {
+        hommaPersonalWatchlist,
+        sectorWatchList,
+        youtubeVideos,
+        hpaVideos,
+        chartLinkScanners,
+        telegramChannel,
+        tradingViewHPAIndicators,
+      } = data;
+      dispatch(
+        dashboardActions.setDashboardData({
+          hommaPersonalWatchlist,
+          sectorWatchList,
+          youtubeVideos,
+          hpaVideos,
+          chartLinkScanners,
+          telegramChannel,
+          tradingViewHPAIndicators,
+        })
+      );
+    }
+  }, [data, isSuccess]);
+
+  if (isLoading) {
+    return (
+      <span className="flex items-center justify-center h-screen">
+        <SVGIcon name="loading-spinner" />
+      </span>
+    );
+  }
+
   return (
     <section className="flex flex-wrap gap-6 ">
       <TileCard
@@ -21,18 +62,21 @@ export const Dashboard = () => {
         }
       >
         <ul className="my-4 space-y-3">
-          <li>
-            <a
-              href="https://in.tradingview.com/watchlists/129403857/"
-              className="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white"
-            >
-              <SVGIcon name="tradingview" />
-              <span className="flex-1 ms-3 whitespace-nowrap">Homma PF</span>
-              <span className="inline-flex items-center justify-center px-2 py-0.5 ms-3 text-xs font-medium text-gray-500 bg-gray-200 rounded dark:bg-gray-700 dark:text-gray-400">
-                Popular
-              </span>
-            </a>
-          </li>
+          {dashboardData.hommaPersonalWatchlist?.map((i) => (
+            <li key={i.name}>
+              <a
+                href={i.link}
+                target="_blank"
+                className="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white"
+              >
+                <SVGIcon name="tradingview" />
+                <span className="flex-1 ms-3 whitespace-nowrap">{i.name}</span>
+                <span className="inline-flex items-center justify-center px-2 py-0.5 ms-3 text-xs font-medium text-gray-500 bg-gray-200 rounded dark:bg-gray-700 dark:text-gray-400">
+                  Popular
+                </span>
+              </a>
+            </li>
+          ))}
         </ul>
       </TileCard>
     </section>
