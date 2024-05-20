@@ -1,31 +1,47 @@
+import { Card, CardBody, Chip, Typography } from "@material-tailwind/react";
 import { FC, PropsWithChildren } from "react";
-import { themeBase } from "../../styles";
-
 interface TileCardProps {
   title?: string;
   action?: JSX.Element;
+  badgeNew?: boolean;
 }
 
 export const TileCard: FC<PropsWithChildren<TileCardProps>> = ({
   children,
   title,
   action,
+  badgeNew = false,
 }) => {
   return (
-    <div
-      className={` ${themeBase} w-full max-[320px]:w-full lg:w-1/2 p-4 grid gap-4 border border-gray-200 rounded-lg shadow sm:p-6 dark:border-gray-700`}
-    >
-      {(title || action) && (
-        <div className="flex items-center justify-between mb-3 ">
-          {title && (
-            <h5 className="text-base font-semibold text-gray-900 md:text-xl dark:text-white">
-              {title}
-            </h5>
-          )}
-          {action && action}
-        </div>
-      )}
-      {children && children}
-    </div>
+    <Card className="w-full lg:w-1/2 max-[380px]:w-full h-full">
+      <CardBody className="px-4 py-8">
+        {(title || action) && (
+          <div className="flex items-center justify-between mb-3 ">
+            {title && (
+              <div className="flex items-center gap-4">
+                <Typography variant="h6" className="mb-2">
+                  {title}
+                </Typography>
+                {badgeNew && (
+                  <span>
+                    <Chip
+                      variant="ghost"
+                      color="green"
+                      size="sm"
+                      value="NEW"
+                      icon={
+                        <span className="mx-auto mt-1 block h-2 w-2 rounded-full bg-green-900 content-['']" />
+                      }
+                    />
+                  </span>
+                )}
+              </div>
+            )}
+            {action && action}
+          </div>
+        )}
+        {children && children}
+      </CardBody>
+    </Card>
   );
 };

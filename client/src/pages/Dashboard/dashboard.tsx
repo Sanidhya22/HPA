@@ -3,9 +3,22 @@ import { SVGIcon } from "../../features/SvgIcon";
 import { TileCard } from "../../features/TileCard";
 import { ArrowRightCircleIcon } from "@heroicons/react/24/outline";
 import { useGetDataQuery } from "../../store/dashboard.api";
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { dashboardActions } from "../../store/dashboard.slice";
+import ReactPlayer from "react-player/youtube";
+import {
+  List,
+  ListItem,
+  ListItemSuffix,
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Chip,
+  Typography,
+} from "@material-tailwind/react";
 
 export const Dashboard = () => {
   const dispatch = useAppDispatch();
@@ -46,39 +59,92 @@ export const Dashboard = () => {
   }
 
   return (
-    <section className="flex flex-wrap gap-6 ">
-      <TileCard
-        title="  Tradingview Watchlist"
-        action={
-          <Link to="watchlists" className="flex items-center gap-1">
-            <p className="text-gray-500 dark:text-gray-300 hover:underline ">
-              All Watchlists
-            </p>
+    <section className="flex flex-wrap justify-evenly gap-6 ">
+      <DashboardWatchListView items={dashboardData.hommaPersonalWatchlist} />
+      <DashboardRecentVideo />
+    </section>
+  );
+};
 
-            <span className="inline-flex p-2 text-blue-500 capitalize transition-colors duration-300 transform rtl:-scale-x-100 dark:text-white hover:underline hover:text-blue-600 dark:hover:text-blue-500">
-              <ArrowRightCircleIcon className="block h-6 w-6" />
-            </span>
+const DashboardWatchListView: FC<{ items: any[] }> = ({ items }) => {
+  return (
+    <>
+      <TileCard
+        title="Tradingview Watchlist"
+        action={
+          <Link to="watchlists" className="flex items-center gap-3">
+            <Typography variant="paragraph">All Watchlists</Typography>
+            <ArrowRightCircleIcon className="block h-5 w-5" />
           </Link>
         }
       >
-        <ul className="my-4 space-y-3">
-          {dashboardData.hommaPersonalWatchlist?.map((i) => (
-            <li key={i.name}>
-              <a
-                href={i.link}
-                target="_blank"
-                className="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white"
-              >
+        <List>
+          {items?.map((i) => (
+            <a href={i.link} target="_blank">
+              <ListItem className="gap-2">
                 <SVGIcon name="tradingview" />
-                <span className="flex-1 ms-3 whitespace-nowrap">{i.name}</span>
-                <span className="inline-flex items-center justify-center px-2 py-0.5 ms-3 text-xs font-medium text-gray-500 bg-gray-200 rounded dark:bg-gray-700 dark:text-gray-400">
-                  Popular
-                </span>
-              </a>
-            </li>
+                <Typography variant="small">{i.name}</Typography>
+                <ListItemSuffix>
+                  <Chip
+                    value="Popular"
+                    variant="ghost"
+                    size="sm"
+                    className="rounded"
+                  />
+                </ListItemSuffix>
+              </ListItem>
+            </a>
           ))}
-        </ul>
+        </List>
       </TileCard>
-    </section>
+    </>
+  );
+};
+
+const DashboardRecentVideo: FC = () => {
+  return (
+    <>
+      <Card className="mt-7 w-full lg:w-[45%] max-[380px]:w-full h-full gap-3">
+        <CardHeader color="blue-gray" className="relative h-56">
+          <ReactPlayer
+            className="w-full h-full"
+            width="100%"
+            height="100%"
+            url={"https://youtu.be/pVBaP7JUI-k"}
+            controls={true}
+          />
+        </CardHeader>
+
+        <CardBody>
+          <div className="flex items-center gap-3 mb-2">
+            <Typography variant="h5" color="blue-gray">
+              Latest Video
+            </Typography>
+
+            <span>
+              <Chip
+                variant="ghost"
+                color="green"
+                size="sm"
+                value="NEW"
+                icon={
+                  <span className="mx-auto mt-1 block h-2 w-2 rounded-full bg-green-900 content-['']" />
+                }
+              />
+            </span>
+          </div>
+
+          <Typography variant="h6">A Trading System: FnO example</Typography>
+        </CardBody>
+        <CardFooter className="pt-0">
+          <Link to="videos" className="contents">
+            <Button variant="gradient" className="flex items-center gap-2">
+              View All
+              <ArrowRightCircleIcon className="block h-5 w-5" />
+            </Button>
+          </Link>
+        </CardFooter>
+      </Card>
+    </>
   );
 };

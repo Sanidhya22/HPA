@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
-import { Navbar } from "../../features/Navbar";
+import { ComplexNavbar } from "../../features/Navbar";
 
 export const Layout = () => {
   return (
     <>
       <div>
-        <Navbar />
+        <ComplexNavbar />
         <main
           role="main"
           className="w-full px-6 py-4 bg-white dark:bg-gray-900"

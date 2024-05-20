@@ -1,14 +1,17 @@
 /** @type {import('tailwindcss').Config} */
-import { defaultTheme } from "tailwindcss/defaultTheme";
-export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+import withMT from "@material-tailwind/react/utils/withMT";
+
+module.exports = withMT({
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       fontFamily: {
         sans: ["Inter var"],
       },
     },
+    screens: {
+      "1xl": "1240px",
+    },
   },
   plugins: [],
-  darkMode: "selector",
-};
+});
