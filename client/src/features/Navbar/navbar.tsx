@@ -12,7 +12,7 @@ import {
   Bars2Icon,
 } from "@heroicons/react/24/solid";
 import { NavbarUserInfo } from "../../widgets/Navbar-User-Info";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const navListItems = [
   {
@@ -28,6 +28,8 @@ const navListItems = [
 ];
 
 function NavList() {
+  const { pathname } = useLocation();
+
   return (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
       {navListItems.map(({ label, icon, to }, key) => (
@@ -39,7 +41,11 @@ function NavList() {
             color="gray"
             className="font-medium text-blue-gray-500"
           >
-            <MenuItem className="flex items-center gap-2 lg:rounded-full">
+            <MenuItem
+              className={`flex items-center gap-2 lg:rounded-full ${
+                pathname === to && "bg-blue-gray-100"
+              } bg-opacity-80`}
+            >
               {React.createElement(icon, { className: "h-[18px] w-[18px]" })}{" "}
               <span className="text-gray-900"> {label}</span>
             </MenuItem>
@@ -63,14 +69,19 @@ export function ComplexNavbar() {
   }, []);
 
   return (
-    <Navbar className="mx-auto max-w-screen-1xl p-2 lg:rounded-full lg:pl-6">
+    <Navbar
+      variant="gradient"
+      className="mx-auto max-w-screen-1xl p-2 lg:rounded lg:pl-6"
+    >
       <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
         <Typography
           as="a"
-          href="#"
+          href="/"
+          variant="h4"
+          color="blue-gray"
           className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
         >
-          Material Tailwind
+          HPA
         </Typography>
         <div className="hidden lg:block">
           <NavList />

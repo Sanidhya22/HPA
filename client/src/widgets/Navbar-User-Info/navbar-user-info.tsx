@@ -73,14 +73,14 @@ export const NavbarUserInfo: FC = () => {
             <Button
               variant="text"
               color="blue-gray"
-              className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
+              className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5"
             >
               <Avatar
                 variant="circular"
                 size="sm"
                 alt="tania andrew"
                 className="border border-gray-900 p-0.5"
-                src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+                src={`/${user.avatar}.png`}
               />
               <ChevronDownIcon
                 strokeWidth={2.5}
@@ -93,10 +93,10 @@ export const NavbarUserInfo: FC = () => {
           <MenuList className="p-1">
             <div className="py-3 px-4">
               <span className="block text-sm font-semibold text-gray-900 dark:text-white">
-                {"test"}
+                {user.username}
               </span>
               <span className="block text-sm text-gray-900 truncate dark:text-white">
-                {"user.email"}
+                {user.email}
               </span>
             </div>
             <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>

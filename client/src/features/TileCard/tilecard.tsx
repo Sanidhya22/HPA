@@ -19,7 +19,7 @@ export const TileCard: FC<PropsWithChildren<TileCardProps>> = ({
           <div className="flex items-center justify-between mb-3 ">
             {title && (
               <div className="flex items-center gap-4">
-                <Typography variant="h6" className="mb-2">
+                <Typography variant="h6" color="black" className="mb-2">
                   {title}
                 </Typography>
                 {badgeNew && (

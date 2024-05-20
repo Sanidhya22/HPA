@@ -117,10 +117,9 @@ const DashboardRecentVideo: FC = () => {
 
         <CardBody>
           <div className="flex items-center gap-3 mb-2">
-            <Typography variant="h5" color="blue-gray">
-              Latest Video
+            <Typography variant="h5" color="black">
+              A Trading System: FnO example
             </Typography>
-
             <span>
               <Chip
                 variant="ghost"
@@ -133,8 +132,6 @@ const DashboardRecentVideo: FC = () => {
               />
             </span>
           </div>
-
-          <Typography variant="h6">A Trading System: FnO example</Typography>
         </CardBody>
         <CardFooter className="pt-0">
           <Link to="videos" className="contents">

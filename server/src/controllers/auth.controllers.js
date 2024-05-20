@@ -138,7 +138,11 @@ export const authenticateToken = async (req, res, next) => {
     return res
       .status(200)
       .json(
-        new ApiResponse(200, { username, email, isAdmin }, 'User Verified')
+        new ApiResponse(
+          200,
+          { username, email, isAdmin, avatar, profileImageUrl },
+          'User Verified'
+        )
       );
   } catch (err) {
     next(err);

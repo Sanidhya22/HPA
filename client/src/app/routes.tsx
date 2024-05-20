@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-
 import { Layout } from "../widgets/Layout/layout";
 import { ErrorElement } from "../pages/ErrorElement";
 import { SignIn } from "../pages/SignIn";
@@ -18,31 +17,39 @@ export const router = createBrowserRouter([
         path: "/",
         element: <h1>Home</h1>,
       },
-    ],
-  },
-  {
-    path: "/dashboard",
-    element: (
-      <Authentication>
-        <Layout />
-      </Authentication>
-    ),
-    errorElement: <ErrorElement />,
-    children: [
       {
-        path: "",
-        element: <Dashboard />,
+        path: "dashboard",
+        element: (
+          <Authentication>
+            <Dashboard />
+          </Authentication>
+        ),
       },
       {
-        path: "watchlists",
-        element: <Watchlist />,
+        path: "dashboard/watchlists",
+        element: (
+          <Authentication>
+            <Watchlist />
+          </Authentication>
+        ),
+      },
+      {
+        path: "dashboard/videos",
+        element: (
+          <Authentication>
+            <Watchlist />
+          </Authentication>
+        ),
+      },
+      {
+        path: "blogs",
+        element: <h1>Coming Soon...</h1>,
+      },
+      {
+        path: "profile",
+        element: <h1>Coming Soon...</h1>,
       },
     ],
-  },
-  {
-    path: "/blog",
-    element: <h1>Coming Soon...</h1>,
-    errorElement: <ErrorElement />,
   },
   {
     path: "/signup",
