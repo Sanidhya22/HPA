@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { CaseReducer, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
+import type { CaseReducer, PayloadAction } from '@reduxjs/toolkit';
 
 interface UserState {
   username: string;
@@ -10,11 +10,11 @@ interface UserState {
 }
 
 const initialState: UserState = {
-  username: "",
-  email: "",
+  username: '',
+  email: '',
   isAdmin: null,
-  avatar: "",
-  profileImageUrl: "",
+  avatar: '',
+  profileImageUrl: '',
 };
 
 const setUserState: CaseReducer<UserState, PayloadAction<UserState>> = (
@@ -28,7 +28,7 @@ const resetUserState: CaseReducer = () => ({
   ...initialState,
 });
 const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
   reducers: {
     setUserState,

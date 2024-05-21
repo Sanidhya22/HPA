@@ -1,5 +1,5 @@
-import { FC, PropsWithChildren } from "react";
-import { themeBase } from "../../styles";
+import { FC, PropsWithChildren } from 'react';
+import { themeBase } from '../../styles';
 
 export const SignUpInCard: FC<PropsWithChildren> = ({ children }) => {
   return (

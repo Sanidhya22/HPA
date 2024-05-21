@@ -1,1 +1,1 @@
-export { SVGIcon } from "./svgicon";
+export { SVGIcon } from './svgicon';

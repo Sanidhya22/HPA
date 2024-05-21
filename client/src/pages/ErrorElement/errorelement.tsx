@@ -1,4 +1,4 @@
-import { themeBase } from "../../styles";
+import { themeBase } from '../../styles';
 
 export function ErrorElement() {
   return (

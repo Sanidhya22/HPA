@@ -1,29 +1,29 @@
-import React from "react";
+import React from 'react';
 import {
   Navbar,
   Typography,
   MenuItem,
   IconButton,
   Collapse,
-} from "@material-tailwind/react";
+} from '@material-tailwind/react';
 import {
   CubeTransparentIcon,
   UserCircleIcon,
   Bars2Icon,
-} from "@heroicons/react/24/solid";
-import { NavbarUserInfo } from "../../widgets/Navbar-User-Info";
-import { Link, useLocation } from "react-router-dom";
+} from '@heroicons/react/24/solid';
+import { NavbarUserInfo } from '../../widgets/Navbar-User-Info';
+import { Link, useLocation } from 'react-router-dom';
 
 const navListItems = [
   {
-    label: "Dashboard",
+    label: 'Dashboard',
     icon: UserCircleIcon,
-    to: "/dashboard",
+    to: '/dashboard',
   },
   {
-    label: "Blogs",
+    label: 'Blogs',
     icon: CubeTransparentIcon,
-    to: "/blogs",
+    to: '/blogs',
   },
 ];
 
@@ -36,17 +36,16 @@ function NavList() {
         <Link key={key} to={to}>
           <Typography
             key={label}
-            as="a"
             variant="small"
             color="gray"
             className="font-medium text-blue-gray-500"
           >
             <MenuItem
               className={`flex items-center gap-2 lg:rounded-full ${
-                pathname === to && "bg-blue-gray-100"
+                pathname === to && 'bg-blue-gray-100'
               } bg-opacity-80`}
             >
-              {React.createElement(icon, { className: "h-[18px] w-[18px]" })}{" "}
+              {React.createElement(icon, { className: 'h-[18px] w-[18px]' })}{' '}
               <span className="text-gray-900"> {label}</span>
             </MenuItem>
           </Typography>
@@ -63,7 +62,7 @@ export function ComplexNavbar() {
 
   React.useEffect(() => {
     window.addEventListener(
-      "resize",
+      'resize',
       () => window.innerWidth >= 960 && setIsNavOpen(false)
     );
   }, []);

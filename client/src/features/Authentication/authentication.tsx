@@ -1,6 +1,6 @@
-import { useAppSelector } from "../../app/hooks";
-import { Navigate, useLocation } from "react-router-dom";
-import { FC, PropsWithChildren } from "react";
+import { useAppSelector } from '../../app/hooks';
+import { Navigate, useLocation } from 'react-router-dom';
+import { FC, PropsWithChildren } from 'react';
 
 export const Authentication: FC<PropsWithChildren> = ({ children }) => {
   const user = useAppSelector((state) => state.user);

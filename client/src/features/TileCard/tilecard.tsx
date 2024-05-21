@@ -1,5 +1,5 @@
-import { Card, CardBody, Chip, Typography } from "@material-tailwind/react";
-import { FC, PropsWithChildren } from "react";
+import { Card, CardBody, Chip, Typography } from '@material-tailwind/react';
+import { FC, PropsWithChildren } from 'react';
 interface TileCardProps {
   title?: string;
   action?: JSX.Element;

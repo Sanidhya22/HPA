@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { CaseReducer, PayloadAction } from "@reduxjs/toolkit";
-import { Dashboard } from "../shared/Types/dashboardSlice";
+import { createSlice } from '@reduxjs/toolkit';
+import type { CaseReducer, PayloadAction } from '@reduxjs/toolkit';
+import { Dashboard } from '../shared/Types/dashboardSlice';
 type State = Dashboard;
 
 const initialState: State = {
@@ -21,7 +21,7 @@ const setDashboardData: CaseReducer<State, PayloadAction<State>> = (
 });
 
 const dashboardSlice = createSlice({
-  name: "dashboard",
+  name: 'dashboard',
   initialState,
   reducers: {
     setDashboardData,

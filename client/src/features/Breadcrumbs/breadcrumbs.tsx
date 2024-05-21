@@ -1,14 +1,14 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from 'react-router-dom';
 
 export const Breadcrumbs = () => {
   const location = useLocation();
-  const pathname = location.pathname.split("/").filter((x) => x);
+  const pathname = location.pathname.split('/').filter((x) => x);
   return (
     <nav className="flex px-6 py-4 text-gray-700 " aria-label="Breadcrumb">
       <ol className="inline-flex items-center space-x-1 rtl:space-x-reverse">
         {pathname.map((value, index) => {
           const last = index === pathname.length - 1;
-          const to = `/${pathname.slice(0, index + 1).join("/")}`;
+          const to = `/${pathname.slice(0, index + 1).join('/')}`;
           const title = value.charAt(0).toUpperCase() + value.slice(1);
 
           return (

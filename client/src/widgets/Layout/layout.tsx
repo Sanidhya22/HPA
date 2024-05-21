@@ -1,5 +1,5 @@
-import { Outlet } from "react-router-dom";
-import { ComplexNavbar } from "../../features/Navbar";
+import { Outlet } from 'react-router-dom';
+import { ComplexNavbar } from '../../features/Navbar';
 
 export const Layout = () => {
   return (

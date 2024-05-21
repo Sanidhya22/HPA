@@ -1,7 +1,7 @@
-import { FC } from "react";
-import { Navigate, useLocation, Outlet } from "react-router-dom";
-import { useAppSelector } from "../../app/hooks";
-import { ErrorElement } from "../../pages/ErrorElement";
+import { FC } from 'react';
+import { Navigate, useLocation, Outlet } from 'react-router-dom';
+import { useAppSelector } from '../../app/hooks';
+import { ErrorElement } from '../../pages/ErrorElement';
 
 export const Authorization: FC = () => {
   const user = useAppSelector((state) => state.user);

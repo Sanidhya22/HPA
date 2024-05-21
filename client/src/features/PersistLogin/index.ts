@@ -1,1 +1,1 @@
-export { PersistLogin } from "./persistlogin";
+export { PersistLogin } from './persistlogin';

@@ -1,8 +1,8 @@
-import React, { FC, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { useSignoutMutation } from "../../store/auth.api";
-import { userActions } from "../../store/user.slice";
+import React, { FC, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useSignoutMutation } from '../../store/auth.api';
+import { userActions } from '../../store/user.slice';
 import {
   Avatar,
   Button,
@@ -11,20 +11,20 @@ import {
   MenuItem,
   MenuList,
   Typography,
-} from "@material-tailwind/react";
+} from '@material-tailwind/react';
 import {
   UserCircleIcon,
   ChevronDownIcon,
   PowerIcon,
-} from "@heroicons/react/24/solid";
+} from '@heroicons/react/24/solid';
 
 const profileMenuItems = [
   {
-    label: "My Profile",
+    label: 'My Profile',
     icon: UserCircleIcon,
   },
   {
-    label: "Sign Out",
+    label: 'Sign Out',
     icon: PowerIcon,
   },
 ];
@@ -37,10 +37,10 @@ export const NavbarUserInfo: FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const closeMenu = (menu: string) => {
-    if (menu === "My Profile") {
-      navigate("/profile");
+    if (menu === 'My Profile') {
+      navigate('/profile');
     }
-    if (menu === "Sign Out") {
+    if (menu === 'Sign Out') {
       handleSignOut();
     }
     setIsMenuOpen(false);
@@ -51,9 +51,11 @@ export const NavbarUserInfo: FC = () => {
       const result = await signOut();
       if (result.data.success) {
         dispatch(userActions.resetUserState());
-        navigate("/signin");
+        navigate('/signin');
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -85,7 +87,7 @@ export const NavbarUserInfo: FC = () => {
               <ChevronDownIcon
                 strokeWidth={2.5}
                 className={`h-3 w-3 transition-transform ${
-                  isMenuOpen ? "rotate-180" : ""
+                  isMenuOpen ? 'rotate-180' : ''
                 }`}
               />
             </Button>
@@ -110,19 +112,19 @@ export const NavbarUserInfo: FC = () => {
                   }}
                   className={`flex items-center gap-2 rounded ${
                     isLastItem
-                      ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
-                      : ""
+                      ? 'hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10'
+                      : ''
                   }`}
                 >
                   {React.createElement(icon, {
-                    className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
+                    className: `h-4 w-4 ${isLastItem ? 'text-red-500' : ''}`,
                     strokeWidth: 2,
                   })}
                   <Typography
                     as="span"
                     variant="small"
                     className="font-normal"
-                    color={isLastItem ? "red" : "inherit"}
+                    color={isLastItem ? 'red' : 'inherit'}
                   >
                     {label}
                   </Typography>

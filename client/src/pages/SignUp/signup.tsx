@@ -1,13 +1,13 @@
-import { Link } from "react-router-dom";
-import { useAppSelector } from "../../app/hooks";
-import { useEffect } from "react";
+import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../app/hooks';
+import { useEffect } from 'react';
 import {
   UserIcon,
   EnvelopeIcon,
   LockClosedIcon,
-} from "@heroicons/react/24/outline";
-import { SignUpInCard } from "../../shared/SignUp-SignIn-Card";
-import { GoogleButton } from "../../features/Button";
+} from '@heroicons/react/24/outline';
+import { SignUpInCard } from '../../shared/SignUp-SignIn-Card';
+import { GoogleButton } from '../../features/Button';
 
 export const SignUp = () => {
   const user = useAppSelector((state) => state.user);

@@ -1,1 +1,1 @@
-export { NavbarUserInfo } from "./navbar-user-info";
+export { NavbarUserInfo } from './navbar-user-info';

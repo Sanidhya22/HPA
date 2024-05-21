@@ -1,20 +1,20 @@
-import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { SignUpInCard } from "../../shared/SignUp-SignIn-Card";
-import { LockClosedIcon, UserIcon } from "@heroicons/react/24/outline";
-import { GoogleButton } from "../../features/Button";
-import { useAppDispatch } from "../../app/hooks";
-import { userActions } from "../../store/user.slice";
-import { useSiginMutation } from "../../store/auth.api";
-import { SVGIcon } from "../../features/SvgIcon";
+import { useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { SignUpInCard } from '../../shared/SignUp-SignIn-Card';
+import { LockClosedIcon, UserIcon } from '@heroicons/react/24/outline';
+import { GoogleButton } from '../../features/Button';
+import { useAppDispatch } from '../../app/hooks';
+import { userActions } from '../../store/user.slice';
+import { useSiginMutation } from '../../store/auth.api';
+import { SVGIcon } from '../../features/SvgIcon';
 
 export const SignIn = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useAppDispatch();
-  const from = location.state?.from || "/";
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const from = location.state?.from || '/';
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [sigin, { isLoading }] = useSiginMutation();
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -123,7 +123,7 @@ export const SignIn = () => {
         </div>
 
         <p className="mt-8 text-xs font-light text-center text-gray-400">
-          Don't have an account?{" "}
+          Don't have an account?{' '}
           <Link
             to="/signup"
             className="font-medium text-gray-700 dark:text-gray-200 hover:underline"

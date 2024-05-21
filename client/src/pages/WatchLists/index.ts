@@ -1,1 +1,1 @@
-export { Watchlist } from "./watchlist";
+export { Watchlist } from './watchlist';

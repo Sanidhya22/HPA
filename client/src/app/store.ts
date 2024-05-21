@@ -1,5 +1,5 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { authApi, dashboardApi, dashboardReducer, userReducer } from "../store";
+import { configureStore } from '@reduxjs/toolkit';
+import { authApi, dashboardApi, dashboardReducer, userReducer } from '../store';
 
 export const store = configureStore({
   reducer: {

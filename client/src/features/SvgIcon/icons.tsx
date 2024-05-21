@@ -1,9 +1,9 @@
-import { FC } from "react";
-import "./icon.css";
+import { FC } from 'react';
+import './icon.css';
 
 export const getPath: FC = (name) => {
   switch (name) {
-    case "tradingview":
+    case 'tradingview':
       return (
         <svg
           width="36"
@@ -18,7 +18,7 @@ export const getPath: FC = (name) => {
           <circle cx="20" cy="8" r="4" fill="currentColor"></circle>
         </svg>
       );
-    case "loading-spinner":
+    case 'loading-spinner':
       return (
         <svg
           width="50"
@@ -37,7 +37,7 @@ export const getPath: FC = (name) => {
           </g>
         </svg>
       );
-    case "google":
+    case 'google':
       return (
         <svg className="w-6 h-6" viewBox="0 0 40 40">
           <path
@@ -58,7 +58,7 @@ export const getPath: FC = (name) => {
           />
         </svg>
       );
-    case "dot-scale-middle-loading":
+    case 'dot-scale-middle-loading':
       return (
         <svg
           width="24"

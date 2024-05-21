@@ -1,12 +1,12 @@
-import { Link } from "react-router-dom";
-import { SVGIcon } from "../../features/SvgIcon";
-import { TileCard } from "../../features/TileCard";
-import { ArrowRightCircleIcon } from "@heroicons/react/24/outline";
-import { useGetDataQuery } from "../../store/dashboard.api";
-import { FC, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { dashboardActions } from "../../store/dashboard.slice";
-import ReactPlayer from "react-player/youtube";
+import { Link } from 'react-router-dom';
+import { SVGIcon } from '../../features/SvgIcon';
+import { TileCard } from '../../features/TileCard';
+import { ArrowRightCircleIcon } from '@heroicons/react/24/outline';
+import { useGetDataQuery } from '../../store/dashboard.api';
+import { FC, useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { dashboardActions } from '../../store/dashboard.slice';
+import ReactPlayer from 'react-player/youtube';
 import {
   List,
   ListItem,
@@ -18,7 +18,7 @@ import {
   CardHeader,
   Chip,
   Typography,
-} from "@material-tailwind/react";
+} from '@material-tailwind/react';
 
 export const Dashboard = () => {
   const dispatch = useAppDispatch();
@@ -62,6 +62,7 @@ export const Dashboard = () => {
     <section className="flex flex-wrap justify-evenly gap-6 ">
       <DashboardWatchListView items={dashboardData.hommaPersonalWatchlist} />
       <DashboardRecentVideo />
+      <DashboardWScannerView items={dashboardData.hommaPersonalWatchlist} />
     </section>
   );
 };
@@ -80,7 +81,7 @@ const DashboardWatchListView: FC<{ items: any[] }> = ({ items }) => {
       >
         <List>
           {items?.map((i) => (
-            <a href={i.link} target="_blank">
+            <a key={i.name} href={i.link} target="_blank">
               <ListItem className="gap-2">
                 <SVGIcon name="tradingview" />
                 <Typography variant="small">{i.name}</Typography>
@@ -110,7 +111,7 @@ const DashboardRecentVideo: FC = () => {
             className="w-full h-full"
             width="100%"
             height="100%"
-            url={"https://youtu.be/pVBaP7JUI-k"}
+            url={'https://youtu.be/pVBaP7JUI-k'}
             controls={true}
           />
         </CardHeader>
@@ -142,6 +143,41 @@ const DashboardRecentVideo: FC = () => {
           </Link>
         </CardFooter>
       </Card>
+    </>
+  );
+};
+
+const DashboardWScannerView: FC<{ items: any[] }> = ({ items }) => {
+  return (
+    <>
+      <TileCard
+        title="Tradingview Watchlist"
+        action={
+          <Link to="watchlists" className="flex items-center gap-3">
+            <Typography variant="paragraph">All Watchlists</Typography>
+            <ArrowRightCircleIcon className="block h-5 w-5" />
+          </Link>
+        }
+      >
+        <List>
+          {items?.map((i) => (
+            <a key={i.name} href={i.link} target="_blank">
+              <ListItem className="gap-2">
+                <SVGIcon name="tradingview" />
+                <Typography variant="small">{i.name}</Typography>
+                <ListItemSuffix>
+                  <Chip
+                    value="Popular"
+                    variant="ghost"
+                    size="sm"
+                    className="rounded"
+                  />
+                </ListItemSuffix>
+              </ListItem>
+            </a>
+          ))}
+        </List>
+      </TileCard>
     </>
   );
 };

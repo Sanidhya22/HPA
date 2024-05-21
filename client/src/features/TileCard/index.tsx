@@ -1,1 +1,1 @@
-export { TileCard } from "./tilecard";
+export { TileCard } from './tilecard';

@@ -1,5 +1,5 @@
-import { FC } from "react";
-import { SVGIcon } from "../SvgIcon";
+import { FC } from 'react';
+import { SVGIcon } from '../SvgIcon';
 
 export const GoogleButton: FC<{ title: string; onClick: () => unknown }> = ({
   title,
