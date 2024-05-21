@@ -35,6 +35,7 @@ export const Dashboard = () => {
         chartLinkScanners,
         telegramChannel,
         tradingViewHPAIndicators,
+        chartLinkDashboards,
       } = data;
       dispatch(
         dashboardActions.setDashboardData({
@@ -45,6 +46,7 @@ export const Dashboard = () => {
           chartLinkScanners,
           telegramChannel,
           tradingViewHPAIndicators,
+          chartLinkDashboards,
         })
       );
     }

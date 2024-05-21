@@ -24,6 +24,12 @@ interface TradingViewHPAIndicatorItem {
   title: string;
   description: string;
   link: string;
+  youtubeVideos: string[];
+}
+interface ChartLinkDashboards {
+  name: string;
+  link: string;
+  description: string;
 }
 
 export interface Dashboard {
@@ -32,6 +38,7 @@ export interface Dashboard {
   youtubeVideos: VideoItem[];
   hpaVideos: VideoItem[];
   chartLinkScanners: ChartLinkScannerItem[];
+  chartLinkDashboards: ChartLinkDashboards[];
   telegramChannel: TelegramChannelItem[];
   tradingViewHPAIndicators: TradingViewHPAIndicatorItem[];
 }

@@ -11,6 +11,7 @@ const initialState: State = {
   chartLinkScanners: [],
   telegramChannel: [],
   tradingViewHPAIndicators: [],
+  chartLinkDashboards: [],
 };
 const setDashboardData: CaseReducer<State, PayloadAction<State>> = (
   state,
@@ -20,11 +21,16 @@ const setDashboardData: CaseReducer<State, PayloadAction<State>> = (
   ...action.payload,
 });
 
+const resetDashboardData: CaseReducer = () => ({
+  ...initialState,
+});
+
 const dashboardSlice = createSlice({
   name: 'dashboard',
   initialState,
   reducers: {
     setDashboardData,
+    resetDashboardData,
   },
 });
 

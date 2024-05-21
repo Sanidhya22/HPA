@@ -32,6 +32,13 @@ const DashboardSchema = new Schema({
       description: String,
     },
   ],
+  chartLinkDashboards: [
+    {
+      name: String,
+      link: String,
+      description: String,
+    },
+  ],
 
   telegramChannel: [
     {
@@ -45,6 +52,7 @@ const DashboardSchema = new Schema({
       title: String,
       description: String,
       link: String,
+      youtubeVideos: [String],
     },
   ],
 });
