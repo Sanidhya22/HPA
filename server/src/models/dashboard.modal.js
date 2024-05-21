@@ -3,13 +3,13 @@ import mongoose, { Schema } from 'mongoose';
 const DashboardSchema = new Schema({
   hommaPersonalWatchlist: [
     {
-      name: String,
+      title: String,
       link: String,
     },
   ],
   sectorWatchList: [
     {
-      name: String,
+      title: String,
       link: String,
     },
   ],
@@ -27,14 +27,14 @@ const DashboardSchema = new Schema({
   ],
   chartLinkScanners: [
     {
-      name: String,
+      title: String,
       link: String,
       description: String,
     },
   ],
   chartLinkDashboards: [
     {
-      name: String,
+      title: String,
       link: String,
       description: String,
     },
@@ -42,7 +42,7 @@ const DashboardSchema = new Schema({
 
   telegramChannel: [
     {
-      name: String,
+      title: String,
       description: String,
       link: String,
     },

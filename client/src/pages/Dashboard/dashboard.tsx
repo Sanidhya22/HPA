@@ -64,7 +64,7 @@ export const Dashboard = () => {
     <section className="flex flex-wrap justify-evenly gap-6 ">
       <DashboardWatchListView items={dashboardData.hommaPersonalWatchlist} />
       <DashboardRecentVideo />
-      <DashboardWScannerView items={dashboardData.hommaPersonalWatchlist} />
+      <DashboardWScannerView items={dashboardData.chartLinkScanners} />
     </section>
   );
 };
@@ -83,10 +83,10 @@ const DashboardWatchListView: FC<{ items: any[] }> = ({ items }) => {
       >
         <List>
           {items?.map((i) => (
-            <a key={i.name} href={i.link} target="_blank">
+            <a key={i.title} href={i.link} target="_blank">
               <ListItem className="gap-2">
                 <SVGIcon name="tradingview" />
-                <Typography variant="small">{i.name}</Typography>
+                <Typography variant="small">{i.title}</Typography>
                 <ListItemSuffix>
                   <Chip
                     value="Popular"
@@ -153,20 +153,21 @@ const DashboardWScannerView: FC<{ items: any[] }> = ({ items }) => {
   return (
     <>
       <TileCard
-        title="Tradingview Watchlist"
+        title="ChartLink Scanners"
         action={
           <Link to="watchlists" className="flex items-center gap-3">
-            <Typography variant="paragraph">All Watchlists</Typography>
+            <Typography color="black" variant="paragraph">
+              All Scanners
+            </Typography>
             <ArrowRightCircleIcon className="block h-5 w-5" />
           </Link>
         }
       >
         <List>
           {items?.map((i) => (
-            <a key={i.name} href={i.link} target="_blank">
+            <a key={i.title} href={i.link} target="_blank">
               <ListItem className="gap-2">
-                <SVGIcon name="tradingview" />
-                <Typography variant="small">{i.name}</Typography>
+                <Typography variant="small">{i.title}</Typography>
                 <ListItemSuffix>
                   <Chip
                     value="Popular"

@@ -1,5 +1,5 @@
 interface WatchlistItem {
-  name: string;
+  title: string;
   link: string;
 }
 
@@ -9,13 +9,13 @@ interface VideoItem {
 }
 
 interface ChartLinkScannerItem {
-  name: string;
+  title: string;
   link: string;
   description: string;
 }
 
 interface TelegramChannelItem {
-  name: string;
+  title: string;
   description: string;
   link: string;
 }
@@ -27,7 +27,7 @@ interface TradingViewHPAIndicatorItem {
   youtubeVideos: string[];
 }
 interface ChartLinkDashboards {
-  name: string;
+  title: string;
   link: string;
   description: string;
 }

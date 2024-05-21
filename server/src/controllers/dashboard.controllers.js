@@ -1,5 +1,12 @@
 import { Dashboard } from '../models/dashboard.modal.js';
-import { sectorWatchlistData } from '../public/mockData.js';
+// import {
+//   mockChartlinkDashboards,
+//   mockChartLinkScanners,
+//   mockHPAVideos,
+//   mockTelegramChannel,
+//   mockTradingVidewHPAIndicators,
+//   sectorWatchlistData,
+// } from '../public/mockData.js';
 
 export const getDashboardData = async (req, res) => {
   const dashboardId = process.env.DASHBOARD_ID;
@@ -7,27 +14,25 @@ export const getDashboardData = async (req, res) => {
   // const newWatchlist = await Dashboard.findByIdAndUpdate(dashboardId, {
   //   hommaPersonalWatchlist: [
   //     {
-  //       name: 'Homma PF',
+  //       title: 'Homma PF',
   //       link: 'https://in.tradingview.com/watchlists/129403857/',
   //     },
   //     {
-  //       name: 'Homma Tight Watchlist',
+  //       title: 'Homma Tight Watchlist',
   //       link: 'https://in.tradingview.com/watchlists/129014128/',
   //     },
   //     {
-  //       name: 'Top 100 ultimate Homma',
+  //       title: 'Top 100 ultimate Homma',
   //       link: 'https://in.tradingview.com/watchlists/142233210/',
   //     },
   //   ],
   //   sectorWatchList: sectorWatchlistData,
 
-  //   tradingViewHPAIndicators: [
-  //     {
-  //       title: 'MARS Modified',
-  //       description: 'XYZ Description',
-  //       link: 'https://www.tradingview.com/v/aQcQ0RN3/',
-  //     },
-  //   ],
+  //   tradingViewHPAIndicators: mockTradingVidewHPAIndicators,
+  //   chartLinkDashboards: mockChartlinkDashboards,
+  //   chartLinkScanners: mockChartLinkScanners,
+  //   telegramChannel: mockTelegramChannel,
+  //   hpaVideos: mockHPAVideos,
   // });
   // console.log(newWatchlist);
   const result = await Dashboard.findById(dashboardId);

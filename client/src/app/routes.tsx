@@ -6,6 +6,7 @@ import { SignUp } from '../pages/SignUp';
 import { Dashboard } from '../pages/Dashboard';
 import { Watchlist } from '../pages/WatchLists';
 import { Authentication } from '../features/Authentication';
+import { Profile } from '../pages/Profile';
 
 export const router = createBrowserRouter([
   {
@@ -47,7 +48,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'profile',
-        element: <h1>Coming Soon...</h1>,
+        element: <Profile />,
       },
     ],
   },
