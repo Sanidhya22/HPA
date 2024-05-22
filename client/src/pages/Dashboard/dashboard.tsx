@@ -2,10 +2,8 @@ import { Link } from 'react-router-dom';
 import { SVGIcon } from '../../features/SvgIcon';
 import { TileCard } from '../../features/TileCard';
 import { ArrowRightCircleIcon } from '@heroicons/react/24/outline';
-import { useGetDataQuery } from '../../store/dashboard.api';
-import { FC, useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { dashboardActions } from '../../store/dashboard.slice';
+import { FC } from 'react';
+import { useAppSelector } from '../../app/hooks';
 import ReactPlayer from 'react-player/youtube';
 import {
   List,
@@ -21,44 +19,7 @@ import {
 } from '@material-tailwind/react';
 
 export const Dashboard = () => {
-  const dispatch = useAppDispatch();
   const dashboardData = useAppSelector((state) => state.dashboard);
-  const { data, isSuccess, isLoading } = useGetDataQuery();
-
-  useEffect(() => {
-    if (isSuccess && data) {
-      const {
-        hommaPersonalWatchlist,
-        sectorWatchList,
-        youtubeVideos,
-        hpaVideos,
-        chartLinkScanners,
-        telegramChannel,
-        tradingViewHPAIndicators,
-        chartLinkDashboards,
-      } = data;
-      dispatch(
-        dashboardActions.setDashboardData({
-          hommaPersonalWatchlist,
-          sectorWatchList,
-          youtubeVideos,
-          hpaVideos,
-          chartLinkScanners,
-          telegramChannel,
-          tradingViewHPAIndicators,
-          chartLinkDashboards,
-        })
-      );
-    }
-  }, [data, isSuccess]);
-
-  if (isLoading) {
-    return (
-      <span className="flex items-center justify-center h-screen">
-        <SVGIcon name="loading-spinner" />
-      </span>
-    );
-  }
 
   return (
     <section className="flex flex-wrap justify-evenly gap-6 ">

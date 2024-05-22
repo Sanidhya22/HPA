@@ -97,7 +97,7 @@ export const SignUp = () => {
 
           <div className="mt-6 text-center ">
             <Link
-              to="/signin"
+              to="/auth/signin"
               className="font-medium text-xs text-gray-700 dark:text-gray-200 hover:underline"
             >
               Already have an account?

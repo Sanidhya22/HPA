@@ -17,6 +17,7 @@ import {
   ChevronDownIcon,
   PowerIcon,
 } from '@heroicons/react/24/solid';
+import { dashboardActions } from '../../store/dashboard.slice';
 
 const profileMenuItems = [
   {
@@ -50,22 +51,43 @@ export const NavbarUserInfo: FC = () => {
     try {
       const result = await signOut();
       if (result.data.success) {
-        dispatch(userActions.resetUserState());
-        navigate('/signin');
+        navigate('/auth/signin');
+        clearStore();
       }
     } catch (error) {
       console.log(error);
     }
   };
 
+  const handelButtonClick = (value: string) => {
+    navigate(`/auth/${value}`);
+  };
+
+  const clearStore = () => {
+    dispatch(userActions.resetUserState());
+    dispatch(dashboardActions.resetDashboardData());
+  };
+
   return (
     <>
       {!user.username ? (
         <div className="flex gap-4">
-          <Button size="sm" variant="text">
+          <Button
+            onClick={() => {
+              handelButtonClick('signin');
+            }}
+            size="sm"
+            variant="text"
+          >
             Sign In
           </Button>
-          <Button size="sm" variant="text">
+          <Button
+            onClick={() => {
+              handelButtonClick('signup');
+            }}
+            size="sm"
+            variant="text"
+          >
             Sign Up
           </Button>
         </div>

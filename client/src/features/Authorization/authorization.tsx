@@ -12,5 +12,7 @@ export const Authorization: FC = () => {
 
     return isAllowed ? <Outlet /> : <ErrorElement />;
   }
-  return <Navigate to="/signin" state={{ from: location.pathname }} replace />;
+  return (
+    <Navigate to="/auth/signin" state={{ from: location.pathname }} replace />
+  );
 };

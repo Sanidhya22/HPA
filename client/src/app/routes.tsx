@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Outlet } from 'react-router-dom';
 import { Layout } from '../widgets/Layout/layout';
 import { ErrorElement } from '../pages/ErrorElement';
 import { SignIn } from '../pages/SignIn';
@@ -7,6 +7,7 @@ import { Dashboard } from '../pages/Dashboard';
 import { Watchlist } from '../pages/WatchLists';
 import { Authentication } from '../features/Authentication';
 import { Profile } from '../pages/Profile';
+import { AppLoading } from '../features/AppLoading';
 
 export const router = createBrowserRouter([
   {
@@ -22,25 +23,31 @@ export const router = createBrowserRouter([
         path: 'dashboard',
         element: (
           <Authentication>
-            <Dashboard />
+            <AppLoading />
           </Authentication>
         ),
-      },
-      {
-        path: 'dashboard/watchlists',
-        element: (
-          <Authentication>
-            <Watchlist />
-          </Authentication>
-        ),
-      },
-      {
-        path: 'dashboard/videos',
-        element: (
-          <Authentication>
-            <Watchlist />
-          </Authentication>
-        ),
+        children: [
+          {
+            path: '',
+            element: <Dashboard />,
+          },
+          {
+            path: 'watchlists',
+            element: <Watchlist />,
+          },
+          {
+            path: 'videos',
+            element: <Watchlist />,
+          },
+          {
+            path: 'chartlink-scanners',
+            element: <Watchlist />,
+          },
+          {
+            path: 'chartlink-dashboard',
+            element: <Watchlist />,
+          },
+        ],
       },
       {
         path: 'blogs',
@@ -48,16 +55,26 @@ export const router = createBrowserRouter([
       },
       {
         path: 'profile',
-        element: <Profile />,
+        element: (
+          <Authentication>
+            <Profile />
+          </Authentication>
+        ),
       },
     ],
   },
   {
-    path: '/signup',
-    element: <SignUp />,
-  },
-  {
-    path: '/signin',
-    element: <SignIn />,
+    path: '/auth',
+    element: <Outlet />,
+    children: [
+      {
+        path: 'signup',
+        element: <SignUp />,
+      },
+      {
+        path: 'signin',
+        element: <SignIn />,
+      },
+    ],
   },
 ]);
