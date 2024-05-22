@@ -81,7 +81,7 @@ export const Watchlist = () => {
             }}
           >
             {TABS.map(({ value, data }) => (
-              <TabPanel value={value}>
+              <TabPanel className="p-0" key={value} value={value}>
                 <WatchListGrid items={data} />
               </TabPanel>
             ))}
@@ -106,7 +106,7 @@ const WatchListGrid: FC<{ items: any }> = ({ items }) => {
 
   return (
     <>
-      <CardBody className="p-4">
+      <CardBody className="p-0 pt-2">
         <Card className="overflow-hidden xl:col-span-2 border border-blue-gray-100 shadow-sm">
           <table className="w-full min-w-max table-auto text-left">
             <thead>

@@ -25,7 +25,7 @@ export const Dashboard = () => {
     <section className="flex flex-wrap justify-evenly gap-6 ">
       <DashboardWatchListView items={dashboardData.hommaPersonalWatchlist} />
       <DashboardRecentVideo />
-      <DashboardWScannerView items={dashboardData.chartLinkScanners} />
+      <DashboardScannerView items={dashboardData.chartLinkScanners} />
     </section>
   );
 };
@@ -110,13 +110,13 @@ const DashboardRecentVideo: FC = () => {
   );
 };
 
-const DashboardWScannerView: FC<{ items: any[] }> = ({ items }) => {
+const DashboardScannerView: FC<{ items: any[] }> = ({ items }) => {
   return (
     <>
       <TileCard
         title="ChartLink Scanners"
         action={
-          <Link to="watchlists" className="flex items-center gap-3">
+          <Link to="chartlink-scanners" className="flex items-center gap-3">
             <Typography color="black" variant="paragraph">
               All Scanners
             </Typography>
@@ -125,7 +125,7 @@ const DashboardWScannerView: FC<{ items: any[] }> = ({ items }) => {
         }
       >
         <List>
-          {items?.map((i) => (
+          {items?.slice(0, 3).map((i) => (
             <a key={i.title} href={i.link} target="_blank">
               <ListItem className="gap-2">
                 <Typography variant="small">{i.title}</Typography>
