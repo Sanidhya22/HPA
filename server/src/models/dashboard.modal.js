@@ -11,6 +11,7 @@ const DashboardSchema = new Schema({
     {
       title: String,
       link: String,
+      description: String,
     },
   ],
   youtubeVideos: [

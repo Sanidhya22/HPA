@@ -107,7 +107,7 @@ const WatchListGrid: FC<{ items: any }> = ({ items }) => {
   return (
     <>
       <CardBody className="p-0 pt-2">
-        <Card className="overflow-hidden xl:col-span-2 border border-blue-gray-100 shadow-sm">
+        <Card className="overflow-hidden overflow-x-auto xl:col-span-2 border border-blue-gray-100 shadow-sm">
           <table className="w-full min-w-max table-auto text-left">
             <thead>
               <tr>
@@ -138,7 +138,7 @@ const WatchListGrid: FC<{ items: any }> = ({ items }) => {
                       </ListItem>
                     </td>
                     <td>
-                      <Typography variant="small">Xyz Description</Typography>
+                      <Typography variant="small">{i.description}</Typography>
                     </td>
 
                     <td>
@@ -158,7 +158,7 @@ const WatchListGrid: FC<{ items: any }> = ({ items }) => {
         </Card>
       </CardBody>
 
-      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+      <CardFooter className="flex items-center justify-between overflow-x-auto border-t border-blue-gray-50 p-4">
         <Pagination
           itemsCount={items.length}
           itemsPerPage={itemsPerPage}

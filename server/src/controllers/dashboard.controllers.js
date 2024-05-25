@@ -3,9 +3,9 @@ import { Dashboard } from '../models/dashboard.modal.js';
 //   mockChartlinkDashboards,
 //   mockChartLinkScanners,
 //   mockHPAVideos,
+//   mocksectorWatchlistData,
 //   mockTelegramChannel,
 //   mockTradingVidewHPAIndicators,
-//   sectorWatchlistData,
 // } from '../public/mockData.js';
 
 export const getDashboardData = async (req, res) => {
@@ -26,7 +26,7 @@ export const getDashboardData = async (req, res) => {
   //       link: 'https://in.tradingview.com/watchlists/142233210/',
   //     },
   //   ],
-  //   sectorWatchList: sectorWatchlistData,
+  //   sectorWatchList: mocksectorWatchlistData,
 
   //   tradingViewHPAIndicators: mockTradingVidewHPAIndicators,
   //   chartLinkDashboards: mockChartlinkDashboards,

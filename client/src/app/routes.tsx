@@ -8,6 +8,8 @@ import { Watchlist } from '../pages/WatchLists';
 import { Authentication } from '../features/Authentication';
 import { Profile } from '../pages/Profile';
 import { AppLoading } from '../features/AppLoading';
+import { CLScanners } from '../pages/Chartlink-Scanners';
+import { CLDashboards } from '../pages/Chartlink-Dashboards';
 
 export const router = createBrowserRouter([
   {
@@ -17,7 +19,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <h1>Home</h1>,
+        element: <h1>Home Page Comming Soon</h1>,
       },
       {
         path: 'dashboard',
@@ -41,17 +43,17 @@ export const router = createBrowserRouter([
           },
           {
             path: 'chartlink-scanners',
-            element: <Watchlist />,
+            element: <CLScanners />,
           },
           {
             path: 'chartlink-dashboard',
-            element: <Watchlist />,
+            element: <CLDashboards />,
           },
         ],
       },
       {
         path: 'blogs',
-        element: <h1>Coming Soon...</h1>,
+        element: <h1>Blogs Coming Soon...</h1>,
       },
       {
         path: 'profile',

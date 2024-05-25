@@ -3,6 +3,9 @@ interface WatchlistItem {
   link: string;
 }
 
+interface SectorWatchlistItem extends WatchlistItem {
+  description: string;
+}
 interface VideoItem {
   title: string;
   link: string;
@@ -34,7 +37,7 @@ interface ChartLinkDashboards {
 
 export interface Dashboard {
   hommaPersonalWatchlist: WatchlistItem[];
-  sectorWatchList: WatchlistItem[];
+  sectorWatchList: SectorWatchlistItem[];
   youtubeVideos: VideoItem[];
   hpaVideos: VideoItem[];
   chartLinkScanners: ChartLinkScannerItem[];

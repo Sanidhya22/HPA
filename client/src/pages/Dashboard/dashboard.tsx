@@ -26,6 +26,7 @@ export const Dashboard = () => {
       <DashboardWatchListView items={dashboardData.hommaPersonalWatchlist} />
       <DashboardRecentVideo />
       <DashboardScannerView items={dashboardData.chartLinkScanners} />
+      <DashboardClDashboardView items={dashboardData.chartLinkDashboards} />
     </section>
   );
 };
@@ -89,7 +90,7 @@ const DashboardRecentVideo: FC = () => {
                 variant="ghost"
                 color="green"
                 size="sm"
-                value="NEW"
+                value="Latest"
                 icon={
                   <span className="mx-auto mt-1 block h-2 w-2 rounded-full bg-green-900 content-['']" />
                 }
@@ -119,6 +120,42 @@ const DashboardScannerView: FC<{ items: any[] }> = ({ items }) => {
           <Link to="chartlink-scanners" className="flex items-center gap-3">
             <Typography color="black" variant="paragraph">
               All Scanners
+            </Typography>
+            <ArrowRightCircleIcon className="block h-5 w-5" />
+          </Link>
+        }
+      >
+        <List>
+          {items?.slice(0, 3).map((i) => (
+            <a key={i.title} href={i.link} target="_blank">
+              <ListItem className="gap-2">
+                <Typography variant="small">{i.title}</Typography>
+                <ListItemSuffix>
+                  <Chip
+                    value="Popular"
+                    variant="ghost"
+                    size="sm"
+                    className="rounded"
+                  />
+                </ListItemSuffix>
+              </ListItem>
+            </a>
+          ))}
+        </List>
+      </TileCard>
+    </>
+  );
+};
+
+const DashboardClDashboardView: FC<{ items: any[] }> = ({ items }) => {
+  return (
+    <>
+      <TileCard
+        title="ChartLink Dashboard"
+        action={
+          <Link to="chartlink-dashboard" className="flex items-center gap-3">
+            <Typography color="black" variant="paragraph">
+              All Chartlink Dashboard
             </Typography>
             <ArrowRightCircleIcon className="block h-5 w-5" />
           </Link>

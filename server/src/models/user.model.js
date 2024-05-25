@@ -25,6 +25,20 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    isPremium: {
+      type: Boolean,
+      default: false,
+    },
+    premiumSince: {
+      type: Date,
+    },
+    premiumExpires: { type: Date },
+    tradingViewName: {
+      type: String,
+    },
+    telegramName: {
+      type: String,
+    },
     avatar: {
       type: String,
       default: 'man',
