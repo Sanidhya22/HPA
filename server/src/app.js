@@ -3,6 +3,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import authRoutes from './routes/auth.routes.js';
 import dashboardRoutes from './routes/dashboard.routes.js';
+import requestsRoutes from './routes/premiumRequests.routes.js';
 import { errorHandler } from './middlewares/errorHandler.middleware.js';
 import { API } from './constants.js';
 
@@ -24,6 +25,8 @@ app.use(cookieParser());
 app.use(`${API}/auth`, authRoutes);
 
 app.use(`${API}/dashboard`, dashboardRoutes);
+
+app.use(`${API}/requests`, requestsRoutes);
 
 app.use(errorHandler, dashboardRoutes);
 

@@ -1,60 +1,66 @@
 import { Dashboard } from '../models/dashboard.modal.js';
-// import {
-//   mockChartlinkDashboards,
-//   mockChartLinkScanners,
-//   mockHPAVideos,
-//   mocksectorWatchlistData,
-//   mockTelegramChannel,
-//   mockTradingVidewHPAIndicators,
-// } from '../public/mockData.js';
 
-export const getDashboardData = async (req, res) => {
-  const dashboardId = process.env.DASHBOARD_ID;
+export const getDashboardData = async (req, res, next) => {
+  try {
+    const dashboardId = process.env.DASHBOARD_ID;
 
-  // const newWatchlist = await Dashboard.findByIdAndUpdate(dashboardId, {
-  //   hommaPersonalWatchlist: [
-  //     {
-  //       title: 'Homma PF',
-  //       link: 'https://in.tradingview.com/watchlists/129403857/',
-  //     },
-  //     {
-  //       title: 'Homma Tight Watchlist',
-  //       link: 'https://in.tradingview.com/watchlists/129014128/',
-  //     },
-  //     {
-  //       title: 'Top 100 ultimate Homma',
-  //       link: 'https://in.tradingview.com/watchlists/142233210/',
-  //     },
-  //   ],
-  //   sectorWatchList: mocksectorWatchlistData,
+    const result = await Dashboard.findById(dashboardId);
 
-  //   tradingViewHPAIndicators: mockTradingVidewHPAIndicators,
-  //   chartLinkDashboards: mockChartlinkDashboards,
-  //   chartLinkScanners: mockChartLinkScanners,
-  //   telegramChannel: mockTelegramChannel,
-  //   hpaVideos: mockHPAVideos,
-  // });
-  // console.log(newWatchlist);
-  const result = await Dashboard.findById(dashboardId);
-  const {
-    hommaPersonalWatchlist,
-    sectorWatchList,
-    youtubeVideos,
-    hpaVideos,
-    chartLinkScanners,
-    telegramChannel,
-    tradingViewHPAIndicators,
-    chartLinkDashboards,
-  } = result;
+    if (!result) {
+      throw new ApiError(404, 'Something went wrong.');
+    }
 
-  return res.status(200).json({
-    hommaPersonalWatchlist,
-    sectorWatchList,
-    youtubeVideos,
-    hpaVideos,
-    chartLinkScanners,
-    telegramChannel,
-    tradingViewHPAIndicators,
-    chartLinkDashboards,
-  });
+    const {
+      hommaPersonalWatchlist,
+      sectorWatchList,
+      youtubeVideos,
+      hpaVideos,
+      chartLinkScanners,
+      telegramChannel,
+      tradingViewHPAIndicators,
+      chartLinkDashboards,
+    } = result;
+
+    return res.status(200).json({
+      hommaPersonalWatchlist,
+      sectorWatchList,
+      youtubeVideos,
+      hpaVideos,
+      chartLinkScanners,
+      telegramChannel,
+      tradingViewHPAIndicators,
+      chartLinkDashboards,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateDashboardData = async (req, res, next) => {
+  const { attributeName, data } = req.body;
+
+  if (!attributeName || !data) {
+    throw new ApiError(400, 'Data are required.');
+  }
+
+  try {
+    const dashboardId = process.env.DASHBOARD_ID;
+
+    const updatedDashboard = await Dashboard.findByIdAndUpdate(
+      dashboardId,
+      { [attributeName]: data },
+      { new: true }
+    );
+
+    if (!updatedDashboard) {
+      throw new ApiError(404, 'Dashboard not found or could not be updated.');
+    }
+
+    return res.status(200).json({
+      message: 'Dashboard attribute updated successfully.',
+      updatedDashboard,
+    });
+  } catch (error) {
+    next(error);
+  }
 };

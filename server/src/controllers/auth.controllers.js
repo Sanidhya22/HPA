@@ -56,8 +56,9 @@ export const handleUserSignIn = async (req, res, next) => {
     const thirtyDaysInMilliseconds = 30 * 24 * 60 * 60 * 1000;
     const options = {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
       maxAge: thirtyDaysInMilliseconds,
+      sameSite: 'None',
+      secure: true,
     };
 
     return res
@@ -134,16 +135,34 @@ export const authenticateToken = async (req, res, next) => {
       throw new ApiError(401, 'Invalid Access Token');
     }
 
-    const { username, email, isAdmin, avatar, profileImageUrl } = user;
-    return res
-      .status(200)
-      .json(
-        new ApiResponse(
-          200,
-          { username, email, isAdmin, avatar, profileImageUrl },
-          'User Verified'
-        )
-      );
+    const {
+      username,
+      email,
+      isAdmin,
+      avatar,
+      profileImageUrl,
+      isPremium,
+      premiumStatus,
+      premiumSince,
+      premiumExpires,
+    } = user;
+    return res.status(200).json(
+      new ApiResponse(
+        200,
+        {
+          username,
+          email,
+          isAdmin,
+          avatar,
+          profileImageUrl,
+          isPremium,
+          premiumStatus,
+          premiumSince,
+          premiumExpires,
+        },
+        'User Verified'
+      )
+    );
   } catch (err) {
     next(err);
   }

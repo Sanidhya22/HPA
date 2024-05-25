@@ -25,6 +25,11 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    premiumStatus: {
+      type: String,
+      enum: ['none', 'pending', 'accepted', 'declined'],
+      default: 'none',
+    },
     isPremium: {
       type: Boolean,
       default: false,
