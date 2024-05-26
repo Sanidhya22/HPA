@@ -13,9 +13,27 @@ export const PersistLogin: FC<PropsWithChildren> = ({ children }) => {
     async function checkLoginStatus() {
       try {
         const result = await verifyAuth();
-        const { username, email, isAdmin, avatar } = result.data.data;
+        const {
+          username,
+          email,
+          isAdmin,
+          avatar,
+          isPremium,
+          premiumStatus,
+          premiumSince,
+          premiumExpires,
+        } = result.data.data;
         dispatch(
-          userActions.setUserState({ username, email, isAdmin, avatar })
+          userActions.setUserState({
+            username,
+            email,
+            isAdmin,
+            avatar,
+            isPremium,
+            premiumStatus,
+            premiumSince,
+            premiumExpires,
+          })
         );
       } catch (error) {
         console.log(error);

@@ -13,7 +13,7 @@ export const TileCard: FC<PropsWithChildren<TileCardProps>> = ({
   badgeNew = false,
 }) => {
   return (
-    <Card className="w-full lg:w-1/2 max-[380px]:w-full h-full">
+    <Card className="w-full max-[380px]:w-full h-fit border border-blue-gray-100">
       <CardBody className="px-4 py-8">
         {(title || action) && (
           <div className="flex items-center justify-between mb-3 ">

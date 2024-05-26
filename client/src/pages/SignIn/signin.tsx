@@ -23,9 +23,27 @@ export const SignIn = () => {
     try {
       const result = await sigin({ username, password });
       if (result.data) {
-        const { username, email, isAdmin, avatar } = result.data.user;
+        const {
+          username,
+          email,
+          isAdmin,
+          avatar,
+          isPremium,
+          premiumStatus,
+          premiumSince,
+          premiumExpires,
+        } = result.data.user;
         dispatch(
-          userActions.setUserState({ username, email, isAdmin, avatar })
+          userActions.setUserState({
+            username,
+            email,
+            isAdmin,
+            avatar,
+            isPremium,
+            premiumStatus,
+            premiumSince,
+            premiumExpires,
+          })
         );
         navigate(from);
       }

@@ -59,7 +59,7 @@ export const CLScanners: FC = () => {
 
       <CardBody className="flex flex-wrap justify-evenly">
         {renderItems.map((i) => (
-          <Card className="mt-6 max-w-96 border border-blue-gray-100 shadow-sm">
+          <Card className="mt-6 max-w-80 border border-blue-gray-100 shadow-sm">
             <CardBody className="p-4">
               <Typography variant="h5" color="blue-gray" className="mb-2">
                 {i.title}

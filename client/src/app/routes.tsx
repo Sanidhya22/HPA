@@ -1,4 +1,8 @@
-import { createBrowserRouter, Outlet } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  Outlet,
+  ScrollRestoration,
+} from 'react-router-dom';
 import { Layout } from '../widgets/Layout/layout';
 import { ErrorElement } from '../pages/ErrorElement';
 import { SignIn } from '../pages/SignIn';
@@ -10,11 +14,17 @@ import { Profile } from '../pages/Profile';
 import { AppLoading } from '../features/AppLoading';
 import { CLScanners } from '../pages/Chartlink-Scanners';
 import { CLDashboards } from '../pages/Chartlink-Dashboards';
+import { Videos } from '../pages/Videos';
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout />,
+    element: (
+      <>
+        <ScrollRestoration />
+        <Layout />
+      </>
+    ),
     errorElement: <ErrorElement />,
     children: [
       {
@@ -39,7 +49,7 @@ export const router = createBrowserRouter([
           },
           {
             path: 'videos',
-            element: <Watchlist />,
+            element: <Videos />,
           },
           {
             path: 'chartlink-scanners',

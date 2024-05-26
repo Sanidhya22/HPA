@@ -22,11 +22,15 @@ export const Dashboard = () => {
   const dashboardData = useAppSelector((state) => state.dashboard);
 
   return (
-    <section className="flex flex-wrap justify-evenly gap-6 ">
-      <DashboardWatchListView items={dashboardData.hommaPersonalWatchlist} />
-      <DashboardRecentVideo />
-      <DashboardScannerView items={dashboardData.chartLinkScanners} />
-      <DashboardClDashboardView items={dashboardData.chartLinkDashboards} />
+    <section className="flex flex-wrap justify-center gap-8">
+      <section className="flex flex-col w-[587px] gap-6 ">
+        <DashboardRecentVideo />
+        <DashboardWatchListView items={dashboardData.hommaPersonalWatchlist} />
+      </section>
+      <section className="flex flex-col w-[587px] gap-6 ">
+        <DashboardScannerView items={dashboardData.chartLinkScanners} />
+        <DashboardClDashboardView items={dashboardData.chartLinkDashboards} />
+      </section>
     </section>
   );
 };
@@ -38,7 +42,9 @@ const DashboardWatchListView: FC<{ items: any[] }> = ({ items }) => {
         title="Tradingview Watchlist"
         action={
           <Link to="watchlists" className="flex items-center gap-3">
-            <Typography variant="paragraph">All Watchlists</Typography>
+            <Typography color="black" variant="paragraph">
+              All Watchlists
+            </Typography>
             <ArrowRightCircleIcon className="block h-5 w-5" />
           </Link>
         }
@@ -48,7 +54,9 @@ const DashboardWatchListView: FC<{ items: any[] }> = ({ items }) => {
             <a key={i.title} href={i.link} target="_blank">
               <ListItem className="gap-2">
                 <SVGIcon name="tradingview" />
-                <Typography variant="small">{i.title}</Typography>
+                <Typography color="black" variant="small">
+                  {i.title}
+                </Typography>
                 <ListItemSuffix>
                   <Chip
                     value="Popular"
@@ -69,7 +77,7 @@ const DashboardWatchListView: FC<{ items: any[] }> = ({ items }) => {
 const DashboardRecentVideo: FC = () => {
   return (
     <>
-      <Card className="mt-7 w-full lg:w-[45%] max-[380px]:w-full h-full gap-3">
+      <Card className="mt-7 w-full max-[380px]:w-full h-full gap-3">
         <CardHeader color="blue-gray" className="relative h-56">
           <ReactPlayer
             className="w-full h-full"
@@ -129,7 +137,9 @@ const DashboardScannerView: FC<{ items: any[] }> = ({ items }) => {
           {items?.slice(0, 3).map((i) => (
             <a key={i.title} href={i.link} target="_blank">
               <ListItem className="gap-2">
-                <Typography variant="small">{i.title}</Typography>
+                <Typography color="black" variant="small">
+                  {i.title}
+                </Typography>
                 <ListItemSuffix>
                   <Chip
                     value="Popular"
@@ -165,7 +175,9 @@ const DashboardClDashboardView: FC<{ items: any[] }> = ({ items }) => {
           {items?.slice(0, 3).map((i) => (
             <a key={i.title} href={i.link} target="_blank">
               <ListItem className="gap-2">
-                <Typography variant="small">{i.title}</Typography>
+                <Typography color="black" variant="small">
+                  {i.title}
+                </Typography>
                 <ListItemSuffix>
                   <Chip
                     value="Popular"

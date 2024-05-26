@@ -21,12 +21,15 @@ export const AppLoading: FC = () => {
         tradingViewHPAIndicators,
         chartLinkDashboards,
       } = data;
+
+      const updatedHPAVideo = hpaVideos.slice().reverse();
+      const updatedYTVideos = youtubeVideos.slice().reverse();
       dispatch(
         dashboardActions.setDashboardData({
           hommaPersonalWatchlist,
           sectorWatchList,
-          youtubeVideos,
-          hpaVideos,
+          youtubeVideos: updatedYTVideos,
+          hpaVideos: updatedHPAVideo,
           chartLinkScanners,
           telegramChannel,
           tradingViewHPAIndicators,

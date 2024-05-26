@@ -36,13 +36,13 @@ function NavList() {
         <Link key={key} to={to}>
           <Typography
             key={label}
-            variant="small"
-            color="gray"
+            variant="h6"
+            color="black"
             className="font-medium text-blue-gray-500"
           >
             <MenuItem
               className={`flex items-center gap-2 lg:rounded-full ${
-                pathname === to && 'bg-blue-gray-100'
+                pathname.includes(to) && 'bg-blue-gray-100'
               } bg-opacity-80`}
             >
               {React.createElement(icon, { className: 'h-[18px] w-[18px]' })}{' '}

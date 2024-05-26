@@ -7,6 +7,10 @@ interface UserState {
   isAdmin: null | boolean;
   avatar: string;
   profileImageUrl?: string;
+  isPremium: boolean | null;
+  premiumStatus: 'none' | 'pending' | 'accepted' | 'declined';
+  premiumSince: Date | null;
+  premiumExpires: Date | null;
 }
 
 const initialState: UserState = {
@@ -15,6 +19,10 @@ const initialState: UserState = {
   isAdmin: null,
   avatar: '',
   profileImageUrl: '',
+  isPremium: null,
+  premiumStatus: 'none',
+  premiumSince: null,
+  premiumExpires: null,
 };
 
 const setUserState: CaseReducer<UserState, PayloadAction<UserState>> = (

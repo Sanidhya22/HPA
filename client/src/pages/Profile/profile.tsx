@@ -8,8 +8,10 @@ import {
 import { PencilIcon } from '@heroicons/react/24/solid';
 
 import { ProfileInfoCard } from '../../shared/Profile-Info-Card';
+import { useAppSelector } from '../../app/hooks';
 
 export const Profile = () => {
+  const user = useAppSelector((state) => state.user);
   return (
     <>
       <div className="relative mt-8 h-28 w-full overflow-hidden rounded-xl bg-grey-100 bg-cover	bg-center">
@@ -20,7 +22,7 @@ export const Profile = () => {
           <div className="mb-10 flex items-center justify-between flex-wrap gap-6">
             <div className="flex items-center gap-6">
               <Avatar
-                src="/man.png"
+                src={`/${user.avatar}.png`}
                 alt="bruce-mars"
                 size="xl"
                 variant="rounded"
@@ -28,7 +30,7 @@ export const Profile = () => {
               />
               <div>
                 <Typography variant="h5" color="blue-gray" className="mb-1">
-                  Richard Davis
+                  {user.username}
                 </Typography>
               </div>
             </div>
@@ -40,8 +42,8 @@ export const Profile = () => {
               details={{
                 'first name': 'Alec M. Thompson',
                 mobile: '(44) 123 1234 123',
-                email: 'alecthompson@mail.com',
-                location: 'USA',
+                email: user.email,
+                location: 'India',
               }}
               action={
                 <Tooltip content="Edit Profile">
