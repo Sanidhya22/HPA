@@ -40,8 +40,8 @@ export const Profile = () => {
               title="Profile Information"
               description="Hi, I'm Alec Thompson, Decisions: If you can't decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality)."
               details={{
-                'first name': 'Alec M. Thompson',
-                mobile: '(44) 123 1234 123',
+                'first name': user.username,
+                mobile: '(+91) 9993481424',
                 email: user.email,
                 location: 'India',
               }}

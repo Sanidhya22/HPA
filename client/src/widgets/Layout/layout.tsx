@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { ComplexNavbar } from '../../features/Navbar';
 import { OverlayLayout } from '../OverlayLayout/overlay-layout';
+import { Footer } from '../../features/Footer';
 
 export const Layout = () => {
   return (
@@ -14,6 +15,7 @@ export const Layout = () => {
         >
           <Outlet />
         </main>
+        <Footer />
       </div>
     </>
   );

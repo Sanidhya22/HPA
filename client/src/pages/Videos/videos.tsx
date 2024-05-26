@@ -96,11 +96,11 @@ const VideosGrid: FC<{ items: any }> = ({ items }) => {
       <CardBody className="p-0 pt-2">
         <Card className="overflow-hidden overflow-x-auto xl:col-span-2 border border-blue-gray-100 shadow-sm">
           {currentItems.map((i: any) => (
-            <Card className="w-full  flex-row p-10">
+            <Card className="w-full flex-col md:flex-row p-10 gap-6">
               <CardHeader
                 shadow={false}
                 floated={false}
-                className="m-0 w-1/3 shrink-0 rounded-r-none"
+                className="m-0 w-full h-56 min-[320px]:h-20 sm:h-52 md:h-56 lg:h-60 md:w-1/2 lg:w-1/3 shrink-0"
               >
                 <ReactPlayer
                   className="w-full h-full"
@@ -110,7 +110,7 @@ const VideosGrid: FC<{ items: any }> = ({ items }) => {
                   controls={true}
                 />
               </CardHeader>
-              <CardBody>
+              <CardBody className="p-0">
                 <Typography variant="h4" color="blue-gray" className="mb-2">
                   {i.title}
                 </Typography>
@@ -122,10 +122,7 @@ const VideosGrid: FC<{ items: any }> = ({ items }) => {
                   HPA
                 </Typography>
                 <Typography color="gray" className="mb-8 font-normal">
-                  Like so many organizations these days, Autodesk is a company
-                  in transition. It was until recently a traditional boxed
-                  software company selling licenses. Yet its own business model
-                  disruption is only part of the story
+                  Video Description ......
                 </Typography>
               </CardBody>
             </Card>

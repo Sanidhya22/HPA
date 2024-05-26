@@ -20,6 +20,7 @@ import {
 import { Pagination } from '../../features/Pagination';
 import { SVGIcon } from '../../features/SvgIcon';
 import { useAppSelector } from '../../app/hooks';
+import { useContextDispatch } from '../../shared/AppReducer/app-reducer';
 
 const TABLE_HEAD = ['Name', 'Description', 'Link'];
 
@@ -93,6 +94,7 @@ export const Watchlist = () => {
 };
 
 const WatchListGrid: FC<{ items: any }> = ({ items }) => {
+  const dispatch = useContextDispatch();
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -104,6 +106,7 @@ const WatchListGrid: FC<{ items: any }> = ({ items }) => {
     setCurrentItems(itemsToShow);
   }, [currentPage, items]);
 
+  const toggleSideNav = () => dispatch({ type: 'TOGGLE_SIDENAV' });
   return (
     <>
       <CardBody className="p-0 pt-2">
@@ -130,7 +133,7 @@ const WatchListGrid: FC<{ items: any }> = ({ items }) => {
             <tbody>
               {currentItems.map((i: any) => {
                 return (
-                  <tr key={i.title}>
+                  <tr onClick={toggleSideNav} key={i.title}>
                     <td>
                       <ListItem className="gap-2">
                         <SVGIcon name="tradingview" />

@@ -8,6 +8,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { SignUpInCard } from '../../shared/SignUp-SignIn-Card';
 import { GoogleButton } from '../../features/Button';
+import { Typography } from '@material-tailwind/react';
 
 export const SignUp = () => {
   const user = useAppSelector((state) => state.user);
@@ -19,11 +20,15 @@ export const SignUp = () => {
     <SignUpInCard>
       <form className="w-full max-w-md">
         <div className="flex justify-center mx-auto">
-          <img
-            className="w-auto h-7 sm:h-8"
-            src="https://merakiui.com/images/logo.svg"
-            alt=""
-          />
+          <Typography
+            as="a"
+            href="/"
+            variant="h1"
+            color="blue-gray"
+            className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
+          >
+            HPA
+          </Typography>
         </div>
 
         <div className="flex items-center justify-center mt-4">
