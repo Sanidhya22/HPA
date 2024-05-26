@@ -1,0 +1,19 @@
+{
+  "name": "hpa-dashboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently --kill-others --prefix-colors --success first \"npm run dev:ui\" \"npm run dev:server\"",
+    "dev:ui": "cd ./client && npm run dev",
+    "dev:server": "cd ./server && npm run dev",
+    "prepare": "husky install"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "husky": "^9.0.11"
+  }
+}
