@@ -5,6 +5,8 @@ const DashboardSchema = new Schema({
     {
       title: String,
       link: String,
+      description: String,
+      items: String,
     },
   ],
   sectorWatchList: [
@@ -12,6 +14,7 @@ const DashboardSchema = new Schema({
       title: String,
       link: String,
       description: String,
+      items: String,
     },
   ],
   youtubeVideos: [

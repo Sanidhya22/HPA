@@ -1,9 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://hpa-api.azurewebsites.net/api/auth',
+    baseUrl: `${API_URL}/api/auth`,
     prepareHeaders: (headers) => {
       headers.set('Content-Type', 'application/json');
       return headers;

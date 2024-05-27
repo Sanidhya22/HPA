@@ -1,9 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const dashboardApi = createApi({
   reducerPath: 'dashboardApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://hpa-api.azurewebsites.net/api/dashboard',
+    baseUrl: `${API_URL}/api/dashboar`,
     prepareHeaders: (headers) => {
       headers.set('Content-Type', 'application/json');
       return headers;

@@ -15,7 +15,11 @@ app.use(express.urlencoded({ extended: true }));
 // enable cors
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: [
+      process.env.CORS_OPTION_ONE,
+      process.env.CORS_OPTION_TWO,
+      process.env.CORS_OPTION_THREE,
+    ],
     credentials: true,
   })
 );
