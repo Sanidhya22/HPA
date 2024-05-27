@@ -5,7 +5,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 export const dashboardApi = createApi({
   reducerPath: 'dashboardApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: `${API_URL}/api/dashboar`,
+    baseUrl: `${API_URL}/api/dashboard`,
     prepareHeaders: (headers) => {
       headers.set('Content-Type', 'application/json');
       return headers;
