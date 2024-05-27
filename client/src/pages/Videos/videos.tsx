@@ -96,7 +96,7 @@ const VideosGrid: FC<{ items: any }> = ({ items }) => {
       <CardBody className="p-0 pt-2">
         <Card className="overflow-hidden overflow-x-auto xl:col-span-2 border border-blue-gray-100 shadow-sm">
           {currentItems.map((i: any) => (
-            <Card className="w-full flex-col md:flex-row p-10 gap-6">
+            <Card className="w-full flex-col md:flex-row p-10 gap-6 border ">
               <CardHeader
                 shadow={false}
                 floated={false}
