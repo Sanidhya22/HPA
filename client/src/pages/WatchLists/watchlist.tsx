@@ -21,7 +21,6 @@ import { Pagination } from '../../features/Pagination';
 import { SVGIcon } from '../../features/SvgIcon';
 import { useAppSelector } from '../../app/hooks';
 import { useContextDispatch } from '../../shared/AppReducer/app-reducer';
-import { WatchlistItem } from '../../shared/Types/dashboardSlice';
 
 const TABLE_HEAD = ['Name', 'Description', 'Link'];
 
@@ -107,8 +106,8 @@ const WatchListGrid: FC<{ items: any }> = ({ items }) => {
     setCurrentItems(itemsToShow);
   }, [currentPage, items]);
 
-  const toggleSideNav = (item: any) => {
-    dispatch({ type: 'TOGGLE_SIDENAV', payload: true });
+  const toggleSideNav = (value: any) => {
+    dispatch({ type: 'TOGGLE_SIDENAV', payload: value });
     dispatch({
       type: 'SET_WATCHLIST',
       payload: {
@@ -148,7 +147,7 @@ const WatchListGrid: FC<{ items: any }> = ({ items }) => {
                 return (
                   <tr
                     onClick={() => {
-                      toggleSideNav(i);
+                      toggleSideNav(true);
                     }}
                     key={i.title}
                   >
