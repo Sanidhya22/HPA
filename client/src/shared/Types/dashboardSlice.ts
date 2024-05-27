@@ -1,11 +1,10 @@
-interface WatchlistItem {
+export interface WatchlistItem {
   title: string;
   link: string;
-}
-
-interface SectorWatchlistItem extends WatchlistItem {
+  items: string;
   description: string;
 }
+
 interface VideoItem {
   title: string;
   link: string;
@@ -37,7 +36,7 @@ interface ChartLinkDashboards {
 
 export interface Dashboard {
   hommaPersonalWatchlist: WatchlistItem[];
-  sectorWatchList: SectorWatchlistItem[];
+  sectorWatchList: WatchlistItem[];
   youtubeVideos: VideoItem[];
   hpaVideos: VideoItem[];
   chartLinkScanners: ChartLinkScannerItem[];

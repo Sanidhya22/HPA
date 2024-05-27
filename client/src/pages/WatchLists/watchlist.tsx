@@ -106,7 +106,10 @@ const WatchListGrid: FC<{ items: any }> = ({ items }) => {
     setCurrentItems(itemsToShow);
   }, [currentPage, items]);
 
-  const toggleSideNav = () => dispatch({ type: 'TOGGLE_SIDENAV' });
+  const toggleSideNav = (item: any) => {
+    dispatch({ type: 'TOGGLE_SIDENAV', payload: true });
+    dispatch({ type: 'SET_WATCHLIST', payload: item });
+  };
   return (
     <>
       <CardBody className="p-0 pt-2">
@@ -133,8 +136,13 @@ const WatchListGrid: FC<{ items: any }> = ({ items }) => {
             <tbody>
               {currentItems.map((i: any) => {
                 return (
-                  <tr onClick={toggleSideNav} key={i.title}>
-                    <td>
+                  <tr
+                    onClick={() => {
+                      toggleSideNav(i);
+                    }}
+                    key={i.title}
+                  >
+                    <td id="watchlist-item">
                       <ListItem className="gap-2">
                         <SVGIcon name="tradingview" />
                         <Typography variant="small">{i.title}</Typography>

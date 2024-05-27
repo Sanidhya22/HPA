@@ -1,14 +1,15 @@
 import React, { createContext, useContext, useReducer, ReactNode } from 'react';
+import { WatchlistItem } from '../Types/dashboardSlice';
 
 // State and action types definition
 interface AppState {
   isSideNavOpen: boolean;
-  selectedWatchlist: string | null;
+  selectedWatchlist: WatchlistItem | null;
 }
 
 type Action =
-  | { type: 'TOGGLE_SIDENAV' }
-  | { type: 'SET_WATCHLIST'; payload: string };
+  | { type: 'TOGGLE_SIDENAV'; payload: boolean }
+  | { type: 'SET_WATCHLIST'; payload: WatchlistItem | null };
 
 // Initial state
 const initialState: AppState = {
@@ -20,7 +21,7 @@ const initialState: AppState = {
 function appReducer(state: AppState, action: Action): AppState {
   switch (action.type) {
     case 'TOGGLE_SIDENAV':
-      return { ...state, isSideNavOpen: !state.isSideNavOpen };
+      return { ...state, isSideNavOpen: action.payload };
     case 'SET_WATCHLIST':
       return { ...state, selectedWatchlist: action.payload };
     default:

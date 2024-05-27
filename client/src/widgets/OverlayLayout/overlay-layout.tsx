@@ -5,115 +5,11 @@ import {
   useContextDispatch,
   useContextState,
 } from '../../shared/AppReducer/app-reducer';
+import { transformObjectToArray } from '../../shared/Utills/commonUtils';
+import { useEffect, useRef, useState } from 'react';
 
 export function OverlayLayout() {
-  const MOCK = [
-    {
-      name: 'Indices',
-      originalName: 'Indices',
-      symbols: [
-        {
-          name: 'FOREXCOM:SPXUSD',
-          displayName: 'S&P 500',
-        },
-        {
-          name: 'FOREXCOM:NSXUSD',
-          displayName: 'Nasdaq 100',
-        },
-        {
-          name: 'FOREXCOM:DJI',
-          displayName: 'Dow 30',
-        },
-        {
-          name: 'INDEX:NKY',
-          displayName: 'Nikkei 225',
-        },
-        {
-          name: 'INDEX:DEU30',
-          displayName: 'DAX Index',
-        },
-        {
-          name: 'FOREXCOM:UKXGBP',
-          displayName: 'UK 100',
-        },
-
-        {
-          name: 'CME_MINI:ES1!',
-          displayName: 'S&P 500',
-        },
-        {
-          name: 'CME:6E1!',
-          displayName: 'Euro',
-        },
-        {
-          name: 'COMEX:GC1!',
-          displayName: 'Gold',
-        },
-        {
-          name: 'NYMEX:CL1!',
-          displayName: 'Crude Oil',
-        },
-        {
-          name: 'NYMEX:NG1!',
-          displayName: 'Natural Gas',
-        },
-        {
-          name: 'CBOT:ZC1!',
-          displayName: 'Corn',
-        },
-
-        {
-          name: 'CME:GE1!',
-          displayName: 'Eurodollar',
-        },
-        {
-          name: 'CBOT:ZB1!',
-          displayName: 'T-Bond',
-        },
-        {
-          name: 'CBOT:UB1!',
-          displayName: 'Ultra T-Bond',
-        },
-        {
-          name: 'EUREX:FGBL1!',
-          displayName: 'Euro Bund',
-        },
-        {
-          name: 'EUREX:FBTP1!',
-          displayName: 'Euro BTP',
-        },
-        {
-          name: 'EUREX:FGBM1!',
-          displayName: 'Euro BOBL',
-        },
-
-        {
-          name: 'FX:EURUSD',
-        },
-        {
-          name: 'FX:GBPUSD',
-        },
-        {
-          name: 'FX:USDJPY',
-        },
-        {
-          name: 'FX:USDCHF',
-        },
-        {
-          name: 'FX:AUDUSD',
-        },
-        {
-          name: 'FX:USDCAD',
-        },
-      ],
-    },
-  ];
   const { isSideNavOpen } = useContextState();
-  const dispatch = useContextDispatch();
-
-  const toggleSideNav = () => dispatch({ type: 'TOGGLE_SIDENAV' });
-  // const setWatchlist = (watchlist: string) =>
-  //   dispatch({ type: 'SET_WATCHLIST', payload: watchlist });
 
   return (
     <aside
@@ -121,25 +17,117 @@ export function OverlayLayout() {
         isSideNavOpen ? 'translate-x-0' : 'translate-x-full'
       }`}
     >
-      {isSideNavOpen && (
-        <div className="flex flex-col w-full h-full px-1 pt-3 pb-1">
-          <IconButton
-            className="relative left-[-54px] top-16 rounded-r-none border border-r-0 border-blue-gray-100"
-            variant="filled"
-            color="white"
-            onClick={toggleSideNav}
-          >
-            <ChevronRightIcon strokeWidth={2.5} className="h-5 w-5" />
-          </IconButton>
-
-          <MarketData
-            symbolsGroups={MOCK}
-            colorTheme="dark"
-            width="100%"
-            height="100%"
-          ></MarketData>
-        </div>
-      )}
+      {isSideNavOpen && <OverlayLayoutContent />}
     </aside>
   );
 }
+
+{
+  /*  <TradingViewWidget items={watchlistData} /> */
+}
+
+const OverlayLayoutContent = () => {
+  const { selectedWatchlist } = useContextState();
+  const dispatch = useContextDispatch();
+  const [watchlistData, setwatchlistData] = useState<any>([]);
+  const toggleSideNav = (value: boolean) => {
+    dispatch({ type: 'TOGGLE_SIDENAV', payload: value });
+    dispatch({ type: 'SET_WATCHLIST', payload: null });
+  };
+
+  useEffect(() => {
+    if (selectedWatchlist) {
+      setwatchlistData(transformObjectToArray(selectedWatchlist));
+    }
+  }, [selectedWatchlist]);
+
+  const modalRef = useRef<HTMLDivElement>(null);
+  const handleClickOutside = (e: MouseEvent) => {
+    const element = e.target as HTMLElement;
+    if (
+      modalRef.current &&
+      !element.closest('#watchlist-item') &&
+      !modalRef.current.contains(e.target as Node)
+    ) {
+      toggleSideNav(false);
+    }
+  };
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [handleClickOutside]);
+
+  return (
+    <div className="flex flex-col w-full h-full px-1 pt-3 pb-1" ref={modalRef}>
+      <IconButton
+        className="relative left-[-54px] top-16 rounded-r-none border border-r-0 border-blue-gray-100"
+        variant="filled"
+        color="white"
+        onClick={() => {
+          toggleSideNav(false);
+        }}
+      >
+        <ChevronRightIcon strokeWidth={2.5} className="h-5 w-5" />
+      </IconButton>
+
+      {watchlistData.length > 0 && (
+        <MarketData
+          symbolsGroups={watchlistData}
+          colorTheme="dark"
+          width="100%"
+          height="100%"
+        ></MarketData>
+      )}
+      {/*  <TradingViewWidget items={watchlistData} /> */}
+    </div>
+  );
+};
+
+// const TradingViewWidget: React.FC<{ items: any }> = ({ items }) => {
+//   const widgetRef = useRef<HTMLDivElement>(null);
+
+//   useEffect(() => {
+//     if (widgetRef.current && !widgetRef.current.children.length) {
+//       const script = document.createElement('script');
+//       script.src =
+//         'https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js';
+//       script.async = true;
+
+//       script.innerHTML = JSON.stringify({
+//         width: '100%',
+//         height: '100%',
+//         symbolsGroups: items,
+//         showSymbolLogo: true,
+//         isTransparent: false,
+//         colorTheme: 'dark',
+//         locale: 'en',
+//       });
+
+//       widgetRef.current.appendChild(script);
+//     }
+//   }, []);
+
+//   return (
+//     <div className="tradingview-widget-container" style={{ height: '100%' }}>
+//       <div
+//         ref={widgetRef}
+//         className="tradingview-widget-container__widget"
+//         style={{ display: 'contents' }}
+//       ></div>
+
+//       <div className="tradingview-widget-container__widget"></div>
+//       <div className="tradingview-widget-copyright">
+//         <a
+//           href="https://www.tradingview.com/"
+//           rel="noopener nofollow"
+//           target="_blank"
+//         >
+//           <span className="blue-text">Track all markets on TradingView</span>
+//         </a>
+//       </div>
+//     </div>
+//   );
+// };
