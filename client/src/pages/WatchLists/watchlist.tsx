@@ -21,6 +21,7 @@ import { Pagination } from '../../features/Pagination';
 import { SVGIcon } from '../../features/SvgIcon';
 import { useAppSelector } from '../../app/hooks';
 import { useContextDispatch } from '../../shared/AppReducer/app-reducer';
+import { WatchlistItem } from '../../shared/Types/dashboardSlice';
 
 const TABLE_HEAD = ['Name', 'Description', 'Link'];
 
@@ -108,7 +109,16 @@ const WatchListGrid: FC<{ items: any }> = ({ items }) => {
 
   const toggleSideNav = (item: any) => {
     dispatch({ type: 'TOGGLE_SIDENAV', payload: true });
-    dispatch({ type: 'SET_WATCHLIST', payload: item });
+    dispatch({
+      type: 'SET_WATCHLIST',
+      payload: {
+        title: 'Homma Tight Watchlist',
+        description: 'Mock Description .....',
+        link: 'https://in.tradingview.com/watchlists/129403857/',
+        items:
+          'FINCABLES, SARLAPOLY, AEGISCHEM, SOBHA, GRPLTD, INDOTECH, JITFINFRA, RTNPOWER, TRIL, EXIDEIND, THERMAX, SUPREMEIND, COCHINSHIP, PDMJEPAPER, RVNL, BDL, JWL, ARE&M, PREMEXPLN, MANORAMA, TEJASNET',
+      },
+    });
   };
   return (
     <>
