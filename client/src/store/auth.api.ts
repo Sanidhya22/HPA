@@ -13,7 +13,7 @@ export const authApi = createApi({
     credentials: 'include',
   }),
   endpoints: (builder) => ({
-    sigin: builder.mutation<any, any>({
+    signin: builder.mutation<any, any>({
       query: (credentials) => ({
         url: '/signin',
         method: 'POST',
@@ -32,8 +32,27 @@ export const authApi = createApi({
         method: 'POST',
       }),
     }),
+    googleSignup: builder.mutation<any, any>({
+      query: (credentials) => ({
+        url: '/google/signup',
+        method: 'POST',
+        body: credentials,
+      }),
+    }),
+    googleSignin: builder.mutation<any, any>({
+      query: (credentials) => ({
+        url: '/google/signin',
+        method: 'POST',
+        body: credentials,
+      }),
+    }),
   }),
 });
 
-export const { useSiginMutation, useVerifyAuthMutation, useSignoutMutation } =
-  authApi;
+export const {
+  useSigninMutation,
+  useVerifyAuthMutation,
+  useSignoutMutation,
+  useGoogleSignupMutation,
+  useGoogleSigninMutation,
+} = authApi;
