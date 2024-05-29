@@ -88,6 +88,7 @@ export const handleUserSignOut = async (req, res, next) => {
 
     const options = {
       httpOnly: true,
+      sameSite: 'None',
       secure: true,
     };
 
