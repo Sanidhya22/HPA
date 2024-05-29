@@ -1,6 +1,6 @@
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { IconButton } from '@material-tailwind/react';
-import { MarketData } from 'react-ts-tradingview-widgets';
+// import { MarketData } from 'react-ts-tradingview-widgets';
 import {
   useContextDispatch,
   useContextState,
@@ -74,60 +74,61 @@ const OverlayLayoutContent = () => {
       </IconButton>
 
       {watchlistData.length > 0 && (
-        <MarketData
-          symbolsGroups={watchlistData}
-          colorTheme="dark"
-          width="100%"
-          height="100%"
-        ></MarketData>
+        // <MarketData
+        //   symbolsGroups={watchlistData}
+        //   colorTheme="dark"
+        //   width="100%"
+        //   height="100%"
+        // ></MarketData>
+
+        <TradingViewWidget items={watchlistData} />
       )}
-      {/*  <TradingViewWidget items={watchlistData} /> */}
     </div>
   );
 };
 
-// const TradingViewWidget: React.FC<{ items: any }> = ({ items }) => {
-//   const widgetRef = useRef<HTMLDivElement>(null);
+const TradingViewWidget: React.FC<{ items: any }> = ({ items }) => {
+  const widgetRef = useRef<HTMLDivElement>(null);
 
-//   useEffect(() => {
-//     if (widgetRef.current && !widgetRef.current.children.length) {
-//       const script = document.createElement('script');
-//       script.src =
-//         'https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js';
-//       script.async = true;
+  useEffect(() => {
+    if (widgetRef.current && !widgetRef.current.children.length) {
+      const script = document.createElement('script');
+      script.src =
+        'https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js';
+      script.async = true;
 
-//       script.innerHTML = JSON.stringify({
-//         width: '100%',
-//         height: '100%',
-//         symbolsGroups: items,
-//         showSymbolLogo: true,
-//         isTransparent: false,
-//         colorTheme: 'dark',
-//         locale: 'en',
-//       });
+      script.innerHTML = JSON.stringify({
+        width: '100%',
+        height: '100%',
+        symbolsGroups: items,
+        showSymbolLogo: true,
+        isTransparent: false,
+        colorTheme: 'dark',
+        locale: 'en',
+      });
 
-//       widgetRef.current.appendChild(script);
-//     }
-//   }, []);
+      widgetRef.current.appendChild(script);
+    }
+  }, []);
 
-//   return (
-//     <div className="tradingview-widget-container" style={{ height: '100%' }}>
-//       <div
-//         ref={widgetRef}
-//         className="tradingview-widget-container__widget"
-//         style={{ display: 'contents' }}
-//       ></div>
+  return (
+    <div className="tradingview-widget-container" style={{ height: '100%' }}>
+      <div
+        ref={widgetRef}
+        className="tradingview-widget-container__widget"
+        style={{ display: 'contents' }}
+      ></div>
 
-//       <div className="tradingview-widget-container__widget"></div>
-//       <div className="tradingview-widget-copyright">
-//         <a
-//           href="https://www.tradingview.com/"
-//           rel="noopener nofollow"
-//           target="_blank"
-//         >
-//           <span className="blue-text">Track all markets on TradingView</span>
-//         </a>
-//       </div>
-//     </div>
-//   );
-// };
+      <div className="tradingview-widget-container__widget"></div>
+      <div className="tradingview-widget-copyright">
+        <a
+          href="https://www.tradingview.com/"
+          rel="noopener nofollow"
+          target="_blank"
+        >
+          <span className="blue-text">Track all markets on TradingView</span>
+        </a>
+      </div>
+    </div>
+  );
+};

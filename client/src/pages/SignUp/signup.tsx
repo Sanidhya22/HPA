@@ -7,8 +7,8 @@ import {
   LockClosedIcon,
 } from '@heroicons/react/24/outline';
 import { SignUpInCard } from '../../shared/SignUp-SignIn-Card';
-import { GoogleButton } from '../../features/Button';
 import { Typography } from '@material-tailwind/react';
+import { GoogleSignUp } from '../../features/GoogleOAuth';
 
 export const SignUp = () => {
   const user = useAppSelector((state) => state.user);
@@ -96,8 +96,8 @@ export const SignUp = () => {
             Sign Up
           </button>
 
-          <div className="flex items-center mt-6 -mx-2">
-            <GoogleButton title="  Sign up with Google" onClick={() => {}} />
+          <div className="flex items-center mt-6 ">
+            <GoogleSignUp />
           </div>
 
           <div className="mt-6 text-center ">

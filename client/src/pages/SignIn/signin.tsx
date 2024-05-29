@@ -2,12 +2,18 @@ import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { SignUpInCard } from '../../shared/SignUp-SignIn-Card';
 import { LockClosedIcon, UserIcon } from '@heroicons/react/24/outline';
-import { GoogleButton } from '../../features/Button';
 import { useAppDispatch } from '../../app/hooks';
 import { userActions } from '../../store/user.slice';
-import { useSiginMutation } from '../../store/auth.api';
+import {
+  useGoogleSigninMutation,
+  useSigninMutation,
+} from '../../store/auth.api';
 import { SVGIcon } from '../../features/SvgIcon';
 import { Typography } from '@material-tailwind/react';
+import { GoogleSignIn } from '../../features/GoogleOAuth';
+import { jwtDecode } from 'jwt-decode';
+import { CredentialResponse } from '@react-oauth/google';
+import { GoogleUserInfo } from '../../shared/Types/googleUserData';
 
 export const SignIn = () => {
   const navigate = useNavigate();
@@ -16,44 +22,65 @@ export const SignIn = () => {
   const from = location.state?.from || '/';
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [sigin, { isLoading }] = useSiginMutation();
+  const [sigin, { isLoading }] = useSigninMutation();
+  const [googleSignIn] = useGoogleSigninMutation();
 
+  const updateUserData = (userData: any) => {
+    const {
+      username,
+      email,
+      isAdmin,
+      avatar,
+      isPremium,
+      premiumStatus,
+      premiumSince,
+      premiumExpires,
+    } = userData;
+    dispatch(
+      userActions.setUserState({
+        username,
+        email,
+        isAdmin,
+        avatar,
+        isPremium,
+        premiumStatus,
+        premiumSince,
+        premiumExpires,
+      })
+    );
+    navigate(from);
+  };
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
     try {
       const result = await sigin({ username, password });
       if (result.data) {
-        const {
-          username,
-          email,
-          isAdmin,
-          avatar,
-          isPremium,
-          premiumStatus,
-          premiumSince,
-          premiumExpires,
-        } = result.data.user;
-        dispatch(
-          userActions.setUserState({
-            username,
-            email,
-            isAdmin,
-            avatar,
-            isPremium,
-            premiumStatus,
-            premiumSince,
-            premiumExpires,
-          })
-        );
-        navigate(from);
+        updateUserData(result.data.user);
       }
-      // console.log(result.error?.data);
     } catch (error: any) {
       console.log(error);
     }
   };
+  const handleGoogleSuccess = async (
+    credentialResponse: CredentialResponse
+  ) => {
+    const userData = jwtDecode(credentialResponse?.credential!);
 
+    const { name, email, picture } = userData as GoogleUserInfo;
+    try {
+      const result = await googleSignIn({
+        email,
+        username: name,
+        profileImageUrl: picture,
+      });
+      if (result.data) {
+        const decodedData = jwtDecode(result.data.data.accessToken);
+        updateUserData(decodedData);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <SignUpInCard>
       <form onSubmit={handleSubmit} className="w-full max-w-md">
@@ -140,8 +167,8 @@ export const SignIn = () => {
           <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/5"></span>
         </div>
 
-        <div className="flex items-center mt-6 -mx-2">
-          <GoogleButton title=" Sign in with Google" onClick={() => {}} />
+        <div className="flex justify-center mt-6 -mx-2">
+          <GoogleSignIn handleGoogleSuccess={handleGoogleSuccess} />
         </div>
 
         <p className="mt-8 text-xs font-light text-center text-gray-400">
