@@ -8,7 +8,7 @@ import { useAppDispatch } from '../../app/hooks';
 import { userActions } from '../../store/user.slice';
 
 export const GoogleSignUp = () => {
-  const [googleSignUp, { isLoading }] = useGoogleSignupMutation();
+  const [googleSignUp] = useGoogleSignupMutation();
 
   const navigate = useNavigate();
 

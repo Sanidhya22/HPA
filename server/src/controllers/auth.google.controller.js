@@ -6,8 +6,8 @@ import { OAuth2Client } from 'google-auth-library';
 import { generateAccessAndRefereshTokens } from '../utils/commonUtils.js';
 
 const oAuth2Client = new OAuth2Client(
-  '43530715813-44ddc0e4b84ot62e0lhill6ovm74ulq6.apps.googleusercontent.com',
-  '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',
+  process.env.OAUth_CLIENT_ID,
+  process.env.OAUth_CLIENT_SECRET,
   'postmessage'
 );
 
