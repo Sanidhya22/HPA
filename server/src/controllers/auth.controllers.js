@@ -3,12 +3,18 @@ import { ApiError } from '../utils/apiError.js';
 import { ApiResponse } from '../utils/apiResponse.js';
 import jwt from 'jsonwebtoken';
 import { generateAccessAndRefereshTokens } from '../utils/commonUtils.js';
+import { ResponseOptions } from '../constants.js';
 
 export const handleUserSignUp = async (req, res, next) => {
   try {
     const { email, username, password } = req.body;
     if ([email, username, password].some((field) => field?.trim() === '')) {
       throw new ApiError(400, 'All fields are required');
+    }
+
+    const existingUser = await User.findOne({ $or: [{ email }, { username }] });
+    if (existingUser) {
+      throw new ApiError(409, 'Email or username already exists');
     }
 
     const user = await User.create({
@@ -52,20 +58,12 @@ export const handleUserSignIn = async (req, res, next) => {
       user._id
     );
 
-    const thirtyDaysInMilliseconds = 30 * 24 * 60 * 60 * 1000;
-    const options = {
-      httpOnly: true,
-      maxAge: thirtyDaysInMilliseconds,
-      sameSite: 'None',
-      secure: true,
-    };
-
     return res
       .status(200)
-      .cookie('accessToken', accessToken, options)
-      .cookie('refreshToken', refreshToken, options)
+      .cookie('accessToken', accessToken, ResponseOptions)
+      .cookie('refreshToken', refreshToken, ResponseOptions)
       .json(
-        new ApiResponse(200, { accessToken }, 'User Successfully SignedIn')
+        new ApiResponse(200, { accessToken }, 'User Successfully Signedin')
       );
   } catch (err) {
     next(err);
@@ -120,7 +118,9 @@ export const authenticateToken = async (req, res, next) => {
       throw new ApiError(401, 'Invalid Access Token');
     }
 
-    return res.status(200).json(new ApiResponse(200, user, 'User Verified'));
+    return res
+      .status(200)
+      .json(new ApiResponse(200, { accessToken: token }, 'User Verified'));
   } catch (err) {
     next(err);
   }

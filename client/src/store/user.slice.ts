@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { CaseReducer, PayloadAction } from '@reduxjs/toolkit';
 
-interface UserState {
+export interface UserState {
+  _id: string;
   username: string;
   email: string;
   isAdmin: null | boolean;
@@ -14,6 +15,7 @@ interface UserState {
 }
 
 const initialState: UserState = {
+  _id: '',
   username: '',
   email: '',
   isAdmin: null,

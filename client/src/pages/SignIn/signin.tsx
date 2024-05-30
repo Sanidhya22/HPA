@@ -23,31 +23,11 @@ export const SignIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [sigin, { isLoading }] = useSigninMutation();
-  const [googleSignIn] = useGoogleSigninMutation();
+  const [googleSignIn, { isLoading: isLoadingGoogle }] =
+    useGoogleSigninMutation();
 
   const updateUserData = (userData: any) => {
-    const {
-      username,
-      email,
-      isAdmin,
-      avatar,
-      isPremium,
-      premiumStatus,
-      premiumSince,
-      premiumExpires,
-    } = userData;
-    dispatch(
-      userActions.setUserState({
-        username,
-        email,
-        isAdmin,
-        avatar,
-        isPremium,
-        premiumStatus,
-        premiumSince,
-        premiumExpires,
-      })
-    );
+    dispatch(userActions.setUserState(userData));
     navigate(from);
   };
   const handleSubmit = async (event: React.FormEvent) => {
@@ -55,9 +35,13 @@ export const SignIn = () => {
     try {
       const result = await sigin({ username, password });
       if (result.data) {
-        updateUserData(result.data.user);
+        const decodedData = jwtDecode(result.data.data.accessToken);
+        updateUserData(decodedData);
+      } else if (result.error) {
+        // const { data } = result.error;
+        // console.log(data);
       }
-    } catch (error: any) {
+    } catch (error) {
       console.log(error);
     }
   };
@@ -76,6 +60,10 @@ export const SignIn = () => {
       if (result.data) {
         const decodedData = jwtDecode(result.data.data.accessToken);
         updateUserData(decodedData);
+      } else if (result.error) {
+        console.log({ ...result.error });
+        // const { data } = result.error;
+        // console.log(data);
       }
     } catch (error) {
       console.log(error);
@@ -168,7 +156,13 @@ export const SignIn = () => {
         </div>
 
         <div className="flex justify-center mt-6 -mx-2">
-          <GoogleSignIn handleGoogleSuccess={handleGoogleSuccess} />
+          {isLoadingGoogle ? (
+            <span className="flex justify-center">
+              <SVGIcon name="dot-scale-middle-loading" />
+            </span>
+          ) : (
+            <GoogleSignIn handleGoogleSuccess={handleGoogleSuccess} />
+          )}
         </div>
 
         <p className="mt-8 text-xs font-light text-center text-gray-400">

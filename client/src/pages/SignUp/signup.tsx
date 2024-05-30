@@ -1,6 +1,4 @@
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../app/hooks';
-import { useEffect } from 'react';
 import {
   UserIcon,
   EnvelopeIcon,
@@ -9,13 +7,39 @@ import {
 import { SignUpInCard } from '../../shared/SignUp-SignIn-Card';
 import { Typography } from '@material-tailwind/react';
 import { GoogleSignUp } from '../../features/GoogleOAuth';
+import { useGoogleLogin } from '@react-oauth/google';
+import { useGoogleSignupMutation } from '../../store/auth.api';
+import { jwtDecode } from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../app/hooks';
+import { userActions } from '../../store/user.slice';
 
 export const SignUp = () => {
-  const user = useAppSelector((state) => state.user);
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
+  const [googleSignUp] = useGoogleSignupMutation();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
+  const updateUserData = (userData: any) => {
+    dispatch(userActions.setUserState(userData));
+    navigate('/');
+  };
+
+  const login = useGoogleLogin({
+    onSuccess: async ({ code }) => {
+      try {
+        const result = await googleSignUp({ code });
+        if (result.data) {
+          const decodedData = jwtDecode(result.data.data.accessToken);
+          updateUserData(decodedData);
+        } else if (result.error) {
+          console.log(result.error);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    flow: 'auth-code',
+  });
   return (
     <SignUpInCard>
       <form className="w-full max-w-md">
@@ -97,7 +121,7 @@ export const SignUp = () => {
           </button>
 
           <div className="flex items-center mt-6 ">
-            <GoogleSignUp />
+            <GoogleSignUp login={login} />
           </div>
 
           <div className="mt-6 text-center ">

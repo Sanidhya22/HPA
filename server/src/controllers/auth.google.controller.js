@@ -1,9 +1,9 @@
 import { User } from '../models/user.model.js';
 import { ApiError } from '../utils/apiError.js';
 import { ApiResponse } from '../utils/apiResponse.js';
-import { jwtDecode } from 'jwt-decode';
 import { OAuth2Client } from 'google-auth-library';
 import { generateAccessAndRefereshTokens } from '../utils/commonUtils.js';
+import { ResponseOptions } from '../constants.js';
 
 const oAuth2Client = new OAuth2Client(
   process.env.OAUTH_CLIENT_ID,
@@ -11,22 +11,24 @@ const oAuth2Client = new OAuth2Client(
   'postmessage'
 );
 
-const thirtyDaysInMilliseconds = 30 * 24 * 60 * 60 * 1000;
-const options = {
-  httpOnly: true,
-  maxAge: thirtyDaysInMilliseconds,
-  sameSite: 'None',
-  secure: true,
-};
-
 export const handleGoogleUserSignUp = async (req, res, next) => {
   try {
     const { tokens } = await oAuth2Client.getToken(req.body.code);
+    const ticket = await oAuth2Client.verifyIdToken({
+      idToken: tokens.id_token,
+      audience: process.env.OAUTH_CLIENT_ID,
+    });
 
-    const { name, email, picture } = jwtDecode(tokens.id_token);
+    const payload = ticket.getPayload();
+    const { name, email, picture } = payload;
 
     if ([email, name, picture].some((field) => field.trim() === '')) {
       throw new ApiError(400, 'All fields are required');
+    }
+
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      throw new ApiError(409, `User with same email already exists`);
     }
 
     const mockPassword = email + process.env.PASSWORD_SECRET;
@@ -38,22 +40,14 @@ export const handleGoogleUserSignUp = async (req, res, next) => {
       profileImageUrl: picture,
     });
 
-    const createdUser = await User.findById(user._id).select('-password');
-
-    if (!createdUser) {
-      throw new ApiError(
-        500,
-        'Something went wrong while registering the user'
-      );
-    }
     const { accessToken, refreshToken } = await generateAccessAndRefereshTokens(
       user._id
     );
 
     return res
       .status(200)
-      .cookie('accessToken', accessToken, options)
-      .cookie('refreshToken', refreshToken, options)
+      .cookie('accessToken', accessToken, ResponseOptions)
+      .cookie('refreshToken', refreshToken, ResponseOptions)
       .json(
         new ApiResponse(200, { accessToken }, 'User registered Successfully')
       );
@@ -70,12 +64,6 @@ export const handleGoogleUserSignIn = async (req, res, next) => {
     if (!user) {
       throw new ApiError(404, 'User does not exist');
     }
-    const createPassword = email + process.env.PASSWORD_SECRET;
-    const isPasswordValid = await user.isPasswordCorrect(createPassword);
-    console.log(isPasswordValid, createPassword);
-    if (!isPasswordValid) {
-      throw new ApiError(401, 'Invalid user credentials');
-    }
 
     const { accessToken, refreshToken } = await generateAccessAndRefereshTokens(
       user._id
@@ -83,8 +71,8 @@ export const handleGoogleUserSignIn = async (req, res, next) => {
 
     return res
       .status(200)
-      .cookie('accessToken', accessToken, options)
-      .cookie('refreshToken', refreshToken, options)
+      .cookie('accessToken', accessToken, ResponseOptions)
+      .cookie('refreshToken', refreshToken, ResponseOptions)
       .json(
         new ApiResponse(200, { accessToken }, 'User Successfully SignedIn')
       );

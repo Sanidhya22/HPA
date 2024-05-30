@@ -15,6 +15,7 @@ import { AppLoading } from '../features/AppLoading';
 import { CLScanners } from '../pages/Chartlink-Scanners';
 import { CLDashboards } from '../pages/Chartlink-Dashboards';
 import { Videos } from '../pages/Videos';
+import { ProtectedRoute } from '../features/ProtectedRoutes';
 
 export const router = createBrowserRouter([
   {
@@ -35,7 +36,9 @@ export const router = createBrowserRouter([
         path: 'dashboard',
         element: (
           <Authentication>
-            <AppLoading />
+            <ProtectedRoute condition={(user) => !user.isPremium}>
+              <AppLoading />
+            </ProtectedRoute>
           </Authentication>
         ),
         children: [
@@ -77,7 +80,11 @@ export const router = createBrowserRouter([
   },
   {
     path: '/auth',
-    element: <Outlet />,
+    element: (
+      <ProtectedRoute condition={(user) => !!user.username}>
+        <Outlet />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: 'signup',
