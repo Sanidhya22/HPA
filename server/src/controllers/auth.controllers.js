@@ -99,29 +99,3 @@ export const handleUserSignOut = async (req, res, next) => {
     next(error);
   }
 };
-
-export const authenticateToken = async (req, res, next) => {
-  try {
-    const token =
-      req.cookies?.accessToken ||
-      req.header('Authorization')?.replace('Bearer ', '');
-
-    if (!token) {
-      throw new ApiError(401, 'Unauthorized request');
-    }
-    const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    const user = await User.findById(decodedToken?._id).select(
-      '-password -refreshToken'
-    );
-
-    if (!user) {
-      throw new ApiError(401, 'Invalid Access Token');
-    }
-
-    return res
-      .status(200)
-      .json(new ApiResponse(200, { accessToken: token }, 'User Verified'));
-  } catch (err) {
-    next(err);
-  }
-};

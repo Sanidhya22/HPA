@@ -1,3 +1,4 @@
+import { JwtPayload } from 'jwt-decode';
 import { WatchlistItem } from '../Types/dashboardSlice';
 
 export const classify = (classes: object) => Object.values(classes).join(' ');
@@ -42,4 +43,14 @@ export const transformObjectToArray = (sourceObj: WatchlistItem) => {
 
   // Wrap the entry in an array and return
   return [arrayEntry];
+};
+
+export const isTokenExpired = (payload: JwtPayload) => {
+  try {
+    const currentTime = Date.now() / 1000;
+    return payload.exp! < currentTime;
+  } catch (error) {
+    console.error('Error decoding the token:', error);
+    return true;
+  }
 };

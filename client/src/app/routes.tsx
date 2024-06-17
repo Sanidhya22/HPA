@@ -16,6 +16,9 @@ import { CLScanners } from '../pages/Chartlink-Scanners';
 import { CLDashboards } from '../pages/Chartlink-Dashboards';
 import { Videos } from '../pages/Videos';
 import { ProtectedRoute } from '../features/ProtectedRoutes';
+import { Home } from '../pages/Home';
+import { Cources } from '../pages/Cources';
+import { Premium } from '../pages/Premium';
 
 export const router = createBrowserRouter([
   {
@@ -26,11 +29,10 @@ export const router = createBrowserRouter([
         <Layout />
       </>
     ),
-    errorElement: <ErrorElement />,
     children: [
       {
         path: '/',
-        element: <h1>Home Page Comming Soon</h1>,
+        element: <Home />,
       },
       {
         path: 'dashboard',
@@ -76,6 +78,14 @@ export const router = createBrowserRouter([
           </Authentication>
         ),
       },
+      {
+        path: 'cources',
+        element: <Cources />,
+      },
+      {
+        path: 'premium',
+        element: <Premium />,
+      },
     ],
   },
   {
@@ -95,5 +105,9 @@ export const router = createBrowserRouter([
         element: <SignIn />,
       },
     ],
+  },
+  {
+    path: '*',
+    element: <ErrorElement />,
   },
 ]);

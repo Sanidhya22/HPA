@@ -18,6 +18,7 @@ import {
   PowerIcon,
 } from '@heroicons/react/24/solid';
 import { dashboardActions } from '../../store/dashboard.slice';
+import { clearLocalStorage } from '../../shared/Utills/localStorage.Utils';
 
 const profileMenuItems = [
   {
@@ -51,8 +52,9 @@ export const NavbarUserInfo: FC = () => {
     try {
       const result = await signOut();
       if (result.data.success) {
-        navigate('/auth/signin');
         clearStore();
+        clearLocalStorage('_AT');
+        navigate('/auth/signin');
       }
     } catch (error) {
       console.log(error);

@@ -26,12 +26,6 @@ export const authApi = createApi({
         method: 'POST',
       }),
     }),
-    verifyAuth: builder.mutation<any, void>({
-      query: () => ({
-        url: '/verifyauth',
-        method: 'POST',
-      }),
-    }),
     googleSignup: builder.mutation<any, any>({
       query: (credentials) => ({
         url: '/google/signup',
@@ -51,7 +45,6 @@ export const authApi = createApi({
 
 export const {
   useSigninMutation,
-  useVerifyAuthMutation,
   useSignoutMutation,
   useGoogleSignupMutation,
   useGoogleSigninMutation,

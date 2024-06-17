@@ -14,6 +14,7 @@ import { GoogleSignIn } from '../../features/GoogleOAuth';
 import { jwtDecode } from 'jwt-decode';
 import { CredentialResponse } from '@react-oauth/google';
 import { GoogleUserInfo } from '../../shared/Types/googleUserData';
+import { setLocalStorageValue } from '../../shared/Utills/localStorage.Utils';
 
 export const SignIn = () => {
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ export const SignIn = () => {
       const result = await sigin({ username, password });
       if (result.data) {
         const decodedData = jwtDecode(result.data.data.accessToken);
+        setLocalStorageValue('_AT', result.data.data.accessToken);
         updateUserData(decodedData);
       } else if (result.error) {
         // const { data } = result.error;
@@ -59,6 +61,7 @@ export const SignIn = () => {
       });
       if (result.data) {
         const decodedData = jwtDecode(result.data.data.accessToken);
+        setLocalStorageValue('_AT', result.data.data.accessToken);
         updateUserData(decodedData);
       } else if (result.error) {
         console.log({ ...result.error });

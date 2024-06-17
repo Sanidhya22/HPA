@@ -2,12 +2,12 @@ import { FC, PropsWithChildren, useEffect, useState } from 'react';
 import { useAppDispatch } from '../../app/hooks';
 import { userActions } from '../../store/user.slice';
 import { SVGIcon } from '../SvgIcon';
-import { useVerifyAuthMutation } from '../../store/auth.api';
 import { jwtDecode } from 'jwt-decode';
+import { getLocalStorageValue } from '../../shared/Utills/localStorage.Utils';
+import { isTokenExpired } from '../../shared/Utills/commonUtils';
 
 export const PersistLogin: FC<PropsWithChildren> = ({ children }) => {
   const dispatch = useAppDispatch();
-  const [verifyAuth] = useVerifyAuthMutation();
   const [loading, setLoading] = useState(true);
 
   const updateUserData = (userData: any) => {
@@ -16,12 +16,15 @@ export const PersistLogin: FC<PropsWithChildren> = ({ children }) => {
   useEffect(() => {
     async function checkLoginStatus() {
       try {
-        const result = await verifyAuth();
-        if (result.data) {
-          const decodedData = jwtDecode(result.data.data.accessToken);
+        const value = getLocalStorageValue('_AT');
+        if (value) {
+          const decodedData = jwtDecode(value as string);
+          const jwtExpired = isTokenExpired(decodedData);
+          if (jwtExpired) {
+            dispatch(userActions.resetUserState());
+            return;
+          }
           updateUserData(decodedData);
-        } else if (result.error) {
-          console.log(result.error);
         }
       } catch (error) {
         console.log(error);

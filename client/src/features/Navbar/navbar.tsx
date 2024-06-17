@@ -2,28 +2,26 @@ import React from 'react';
 import {
   Navbar,
   Typography,
-  MenuItem,
   IconButton,
   Collapse,
 } from '@material-tailwind/react';
-import {
-  CubeTransparentIcon,
-  UserCircleIcon,
-  Bars2Icon,
-} from '@heroicons/react/24/solid';
+import { Bars2Icon } from '@heroicons/react/24/solid';
 import { NavbarUserInfo } from '../../widgets/Navbar-User-Info';
 import { Link, useLocation } from 'react-router-dom';
 
 const navListItems = [
   {
     label: 'Dashboard',
-    icon: UserCircleIcon,
+
     to: '/dashboard',
   },
   {
-    label: 'Blogs',
-    icon: CubeTransparentIcon,
-    to: '/blogs',
+    label: 'Cources',
+    to: '/cources',
+  },
+  {
+    label: 'The Technical Take',
+    to: 'https://sakatas.substack.com/',
   },
 ];
 
@@ -31,27 +29,26 @@ function NavList() {
   const { pathname } = useLocation();
 
   return (
-    <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
-      {navListItems.map(({ label, icon, to }, key) => (
-        <Link key={key} to={to}>
-          <Typography
-            key={label}
-            variant="h6"
-            color="black"
-            className="font-medium text-blue-gray-500"
-          >
-            <MenuItem
-              className={`flex items-center gap-2 lg:rounded-full ${
-                pathname.includes(to) && 'bg-blue-gray-100'
-              } bg-opacity-80`}
-            >
-              {React.createElement(icon, { className: 'h-[18px] w-[18px]' })}{' '}
-              <span className="text-gray-900"> {label}</span>
-            </MenuItem>
-          </Typography>
+    <>
+      <ul className="mt-2 mb-4 pl-2 flex flex-col h-full grow self-end gap-6 lg:my-0 lg:flex-row lg:items-center">
+        {navListItems.map(({ label, to }, key) => (
+          <Link key={key} to={to} className="h-full">
+            <li className="relative flex h-full items-center text-sm  nav-li-after border-text-primary dark:border-text-primary">
+              <span
+                className={`relative whitespace-nowrap h-full flex items-center text-base leading-[22px] cursor-pointer font-medium text-text-primary dark:text-text-primary ${pathname.includes(to) ? "after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-black" : ''} hover:after:content-[''] hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:w-full hover:after:h-0.5 hover:after:bg-black`}
+              >
+                {label}
+              </span>
+            </li>
+          </Link>
+        ))}
+        <Link to={'/premium'}>
+          <span className="display-none h-8 w-full px-2 cursor-pointer  rounded-[8px] bg-[#ffa1161f] text-center leading-8 transition-colors hover:bg-[#ffa11633] lg:inline-block premiumBtnStyle__8s3V">
+            <span className="text-brand-orange">Homma Private Access</span>
+          </span>
         </Link>
-      ))}
-    </ul>
+      </ul>
+    </>
   );
 }
 
@@ -70,9 +67,9 @@ export function ComplexNavbar() {
   return (
     <Navbar
       variant="gradient"
-      className="mx-auto max-w-screen-1xl p-2 lg:rounded lg:pl-6"
+      className="mx-auto w-full p-0 px-2 lg:rounded lg:pl-6 shadow-none border-b-1.5 border-slate-900"
     >
-      <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
+      <div className="relative h-[50px] mx-auto flex items-center justify-between text-blue-gray-900">
         <Typography
           as="a"
           href="/"
@@ -82,7 +79,7 @@ export function ComplexNavbar() {
         >
           TTK
         </Typography>
-        <div className="hidden lg:block">
+        <div className="hidden lg:block lg:h-[50px]">
           <NavList />
         </div>
         <IconButton
@@ -95,9 +92,11 @@ export function ComplexNavbar() {
           <Bars2Icon className="h-6 w-6" />
         </IconButton>
 
-        <NavbarUserInfo />
+        <div className="flex items-center gap-2">
+          <NavbarUserInfo />
+        </div>
       </div>
-      <Collapse open={isNavOpen} className="overflow-scroll">
+      <Collapse open={isNavOpen}>
         <NavList />
       </Collapse>
     </Navbar>

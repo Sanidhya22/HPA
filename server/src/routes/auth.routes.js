@@ -4,7 +4,6 @@ import {
   handleUserSignIn,
   handleUserSignUp,
   handleUserSignOut,
-  authenticateToken,
 } from '../controllers/auth.controllers.js';
 import { verifyAuth } from '../middlewares/auth.middleware.js';
 import {
@@ -20,7 +19,5 @@ router.route('/signout').post(verifyAuth, handleUserSignOut);
 
 router.route('/google/signin').post(handleGoogleUserSignIn);
 router.route('/google/signup').post(handleGoogleUserSignUp);
-
-router.route('/verifyauth').post(authenticateToken);
 
 export default router;
